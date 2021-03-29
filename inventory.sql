@@ -25,7 +25,7 @@ USE `inventory`;
 
 CREATE TABLE `inventory` (
   `item_name` varchar(64) NOT NULL,
-  `artist` varchar(64) NOT NULL,
+  `artist` varchar(64) NULL,
   `item_id` varchar(64) NOT NULL,
   `item_price` decimal(10,2) NOT NULL,
   `item_quantity` int(11) DEFAULT NULL,
@@ -56,6 +56,8 @@ INSERT INTO `inventory` (`item_name`, `artist`, `item_id`, `item_price`, `item_q
 ('X', 'She Past Away', '744861008976', '20.99', 12, 'Rock & Pop', 'In Stock'),
 ('The Greatest', 'Cat Power', '744861074304', '8.99', 24, 'Rock & Pop', 'In Stock'),
 ('The Dirt and the Stars', 'Mary Chapin Carpenter', '744861078341', '12.99', 13, 'Country', 'In Stock'),
+('Yamaha Electric Guitar', Null, '744861078355', '200.99', 30, 'Instrument', 'In Stock'),
+('Yamaha Acoustic Guitar', Null, '744861078366', '100.99', 20, 'Instrument', 'In Stock'),
 ('Johnny Cash and the Philharmonic Orchestra', 'Johnny Cash', '744861452648', '19.99', 24, 'Country', 'In Stock'),
 ('Now That\'s What I Call Country', 'Various Artists', '744868364517', '9.99', 24, 'Country', 'In Stock');
 
