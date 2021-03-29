@@ -28,6 +28,7 @@
 
 </head>
 
+<!--  v-bind:class="{'cart-data-open': isActive}" -->
 <body>
 
     <div class="catagories-side-menu">
@@ -122,6 +123,7 @@
                                     <div class="header-cart-menu d-flex align-items-center ml-auto">
                                         <!-- Cart Area -->
                                         <div class="cart">
+                                            
                                             <!-- add quantity using vue  -->
                                             <!-- cost also can use vue </i> Your Bag $20 </a>  -->
                                             <a href="#" id="header-cart-btn" target="_blank"> <span
@@ -137,7 +139,7 @@
                                                     <a href="#" class="image"><img v-bind:src=" 'img/product-img/product-' + item.itemID + '.jpg'"
                                                             class="cart-thumb" alt=""></a>
                                                     <div class="cart-item-desc">
-                                                        <button style="float:right;"
+                                                        <button @click="deletethis(index)" style="float:right;"
                                                             class="btn btn-outline-dark btn-sm"> delete </button>
                                                         <h6><a href="#">{{item.name}}</a></h6>
 
@@ -147,7 +149,7 @@
                                     
                                                 </li>
 
-                                                <li>
+                                                <!-- <li>
                                                     <a href="#" class="image"><img src="img/product-img/product-10.jpg"
                                                             class="cart-thumb" alt=""></a>
                                                     <div class="cart-item-desc">
@@ -169,7 +171,8 @@
                                                     </div>
                                                     <span class="dropdown-product-remove"><i
                                                             class="icon-cross"></i></span>
-                                                </li>
+                                                </li> -->
+
                                                 <li class="total">
                                                     <span class="pull-right">Total: $20.00</span>
                                                     <a href="cart.html" class="btn btn-sm btn-cart">Cart</a>
@@ -807,6 +810,7 @@
         var app = new Vue({
             el: "#app1",
             data: {
+                isActive: false,
                 shopitemcount: 0,
                 // i assume this is where the dataset of SQL will go 
                 testlist: [{"name":"jeans","price":"11","itemID":1},
@@ -818,21 +822,28 @@
 
             ],
                 // this is the list that will go to the cart
-                cartlist: [{"name":"skirt","price":"13","qty":1,"itemID":10}],
+                cartlist: [],
                 // just a fix for quantity
                 cartlistindex:[],
             },
             methods: {
                 addcartcount: function(index) {
                     this.shopitemcount++;
+                    // if index exist in cartlist add to quantity in cart
                     if (this.cartlistindex.includes(index)){
                         this.cartlist[index].qty++
+                        // if not add the item into the cartlist so it can be displayed
                     } else {
                         this.testlist[index]['qty'] = 1;
                         this.cartlistindex.push(index)
                         this.cartlist.push(this.testlist[index]);
                     }
-                     
+                    if (this.isActive == false){
+                        this.isActive == true;
+                    }
+                     // delete this item from the cart
+                },deletethis: function(index){
+                    this.cartlist.splice(index,1);
                 }
             }
         })
