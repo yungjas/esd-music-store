@@ -89,14 +89,14 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-CREATE TABLE IF NOT EXISTS `payment` (
-  `payment_id` int(11) NOT NULL AUTO_INCREMENT,
-  `amount` decimal(10,2) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  PRIMARY KEY (`payment_id`),
-  KEY `FK_order_id_payment` (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- CREATE TABLE IF NOT EXISTS `payment` (
+--   `payment_id` int(11) NOT NULL AUTO_INCREMENT,
+--   `amount` decimal(10,2) NOT NULL,
+--   `order_id` int(11) NOT NULL,
+--   PRIMARY KEY (`payment_id`),
+--   KEY `FK_order_id_payment` (`order_id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-ALTER TABLE `payment`
-  ADD CONSTRAINT `FK_order_id_payment` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
+-- ALTER TABLE `payment`
+--   ADD CONSTRAINT `FK_order_id_payment` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+-- COMMIT;
