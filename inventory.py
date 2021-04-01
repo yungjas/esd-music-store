@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -170,4 +172,5 @@ def delete_item(item_id):
     ), 404
 
 if __name__ == '__main__':
+    print("This is flask for " + os.path.basename(__file__) + ": inventory ...")
     app.run(port=6000, debug=True)

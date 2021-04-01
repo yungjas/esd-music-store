@@ -38,12 +38,12 @@ def place_order():
 
 def processPlaceOrder(order):
     # invoke order microservice
+    # if item in an order is out of stock, can still go thru the order microservice for logging purposes - if the item has been restocked, staff can follow up on the order of the item
     print("\n-----Invoking order microservice-----")
     order_result = invoke_http(order_url, method="POST", json=order)
     print("order_result:", order_result)
     
-    # invoke inventory microservice
-    # check if item quantity is sufficient
+    # invoke inventory microservice to check if item quantity is sufficient
     # if not then trigger error microservice
     print("\n-----Invoking inventory microservice-----")
     for each_order_item in order["cart_item"]:
