@@ -57,13 +57,13 @@ class Order_Item(db.Model):
     
     quantity = db.Column(db.Integer, nullable=False)
     
-    amount = db.Column(db.Float(precision=2), nullable=False)
+    #amount = db.Column(db.Float(precision=2), nullable=False)
 
     order = db.relationship(
         'Order', primaryjoin='Order_Item.order_id == Order.order_id', backref='order_item')
 
     def json(self):
-        return {'order_item_id': self.order_item_id, 'order_id': self.order_id, 'item_id': self.item_id, 'quantity': self.quantity, 'amount': self.amount}
+        return {'order_item_id': self.order_item_id, 'order_id': self.order_id, 'item_id': self.item_id, 'quantity': self.quantity}
 
 @app.route("/order")
 def get_all():
@@ -117,7 +117,7 @@ def create_order():
     cart_item = request.json.get('cart_item')
     for each_item in cart_item:
         order.order_item.append(Order_Item(
-            item_id=each_item['item_id'], quantity=each_item['quantity'], amount=each_item['amount']))
+            item_id=each_item['item_id'], quantity=each_item['quantity']))
 
     try:
         db.session.add(order)
