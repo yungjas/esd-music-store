@@ -37,6 +37,11 @@ def place_order():
     }), 400
 
 def processPlaceOrder(order):
+    # invoke order microservice
+    print("\n-----Invoking order microservice-----")
+    order_result = invoke_http(order_url, method="POST", json=order)
+    print("order_result:", order_result)
+    
     # invoke inventory microservice
     # check if item quantity is sufficient
     # if not then trigger error microservice
@@ -51,11 +56,6 @@ def processPlaceOrder(order):
 
         # invoke order microservice and payment microservice if sufficient stock
         else:
-            # invoke order microservice
-            print("\n-----Invoking order microservice-----")
-            order_result = invoke_http(order_url, method="POST", json=order)
-            print("order_result:", order_result)
-
             # invoke payment microservice
             print("\n-----Invoking payment microservice-----")
             invoke_http(payment_url, method="POST", json=item_info["data"]["item_price"])
