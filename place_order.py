@@ -37,13 +37,15 @@ def place_order():
     }), 400
 
 def processPlaceOrder(order):
+    total_amount = 0
+    
     # invoke order microservice
+    # if item in an order is out of stock, can still go thru the order microservice for logging purposes - if the item has been restocked, staff can follow up on the order of the item
     print("\n-----Invoking order microservice-----")
     order_result = invoke_http(order_url, method="POST", json=order)
     print("order_result:", order_result)
     
-    # invoke inventory microservice
-    # check if item quantity is sufficient
+    # invoke inventory microservice to check if item quantity is sufficient
     # if not then trigger error microservice
     print("\n-----Invoking inventory microservice-----")
     for each_order_item in order["cart_item"]:
@@ -56,10 +58,23 @@ def processPlaceOrder(order):
 
         # invoke order microservice and payment microservice if sufficient stock
         else:
+            total_amount += (item_info["data"]["item_price"]) * (each_order_item["quantity"])
             # invoke payment microservice
-            print("\n-----Invoking payment microservice-----")
-            invoke_http(payment_url, method="POST", json=item_info["data"]["item_price"])
+            # print("\n-----Invoking payment microservice-----")
+            # payment_result = invoke_http(payment_url, method="POST", json=item_info["data"]["item_price"])
     
+    # invoke payment microservice - charge total amount
+    print("\n-----Invoking payment microservice-----")
+    payment_result = invoke_http(payment_url, method="POST", json=total_amount)
+    
+    return {
+        "code": 201,
+        "data":{
+            "order_result": order_result,
+            "payment_result": payment_result
+        }
+    }
+
     # invoke error microservice
 
     # invoke notification microservice
