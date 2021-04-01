@@ -123,7 +123,7 @@
                                     <div class="header-cart-menu d-flex align-items-center ml-auto">
                                         <!-- Cart Area -->
                                         <div class="cart">
-                                            
+                                            <!-- asd -->
                                             <!-- add quantity using vue  -->
                                             <!-- cost also can use vue </i> Your Bag $20 </a>  -->
                                             <a href="#" id="header-cart-btn" target="_blank"> <span
@@ -132,9 +132,9 @@
                                                 Your
                                                 Bag </a>
                                             <!-- Cart List Area Start -->
-                                            <ul class="cart-list" v-for="(item, index) in cartlist">
+                                            <ul class="cart-list">
 
-                                                <li v-for="(item, index) in cartlist">
+                                                <li v-for="(item, index) in cartobj">
                                                 
                                                     <a href="#" class="image"><img v-bind:src=" 'img/product-img/product-' + item.itemID + '.jpg'"
                                                             class="cart-thumb" alt=""></a>
@@ -149,32 +149,10 @@
                                     
                                                 </li>
 
-                                                <!-- <li>
-                                                    <a href="#" class="image"><img src="img/product-img/product-10.jpg"
-                                                            class="cart-thumb" alt=""></a>
-                                                    <div class="cart-item-desc">
-                                                        <button style="float:right;"
-                                                            class="btn btn-outline-dark btn-sm"> delete </button>
-                                                        <h6><a href="#">Women's Fashion</a></h6>
 
-                                                        <p>1x - <span class="price">$10</span></p>
-
-                                                    </div>
-
-                                                </li>
-                                                <li>
-                                                    <a href="#" class="image"><img src="img/product-img/product-11.jpg"
-                                                            class="cart-thumb" alt=""></a>
-                                                    <div class="cart-item-desc">
-                                                        <h6><a href="#">Women's Fashion</a></h6>
-                                                        <p>1x - <span class="price">$10</span></p>
-                                                    </div>
-                                                    <span class="dropdown-product-remove"><i
-                                                            class="icon-cross"></i></span>
-                                                </li> -->
 
                                                 <li class="total">
-                                                    <span class="pull-right">Total: $20.00</span>
+                                                    <span class="pull-right">${{displayprice}}</span>
                                                     <a href="cart.html" class="btn btn-sm btn-cart">Cart</a>
                                                     <a href="checkout.html" class="btn btn-sm btn-checkout">Checkout</a>
                                                 </li>
@@ -255,12 +233,12 @@
                         <h5>Free Shipping &amp; Returns</h5>
                         <h6><a href="#">BUY NOW</a></h6>
                     </div>
-                    <!-- Single Discount Area -->
+
                     <div class="single-discount-area">
                         <h5>20% Discount for all dresses</h5>
                         <h6>USE CODE: Colorlib</h6>
                     </div>
-                    <!-- Single Discount Area -->
+
                     <div class="single-discount-area">
                         <h5>20% Discount for students</h5>
                         <h6>USE CODE: Colorlib</h6>
@@ -533,7 +511,7 @@
                                                 <h4 class="product-price">$39.90</h4>
                                                 <p>Jeans midi cocktail dress</p>
                                                 <!-- Add to Cart -->
-                                                
+                                                <!-- asd -->
                                                 <a @click="addcartcount(0)" href="#" class="add-to-cart-btn">ADD TO CART</a>
                                             </div>
                                         </div>
@@ -807,13 +785,17 @@
 
     <!-- vue -->
     <script type="application/javascript">
-        var app = new Vue({
+      var app = new Vue({
             el: "#app1",
             data: {
-                isActive: false,
+
                 shopitemcount: 0,
+                displayprice: 0,
+                testcount:0,
                 // i assume this is where the dataset of SQL will go 
-                testlist: [{"name":"jeans","price":"11","itemID":1},
+                // (`item_name`, `artist`, `item_id`, `item_price`, `item_quantity`, `item_category`, `item_status`)
+                datalist: [{"name":"dress","price":"11","itemID":0},
+                {"name":"jeans","price":"11","itemID":1},
                 {"name":"shorts1","price":"12","itemID":2},
                 {"name":"shorts2","price":"13","itemID":3},
                 {"name":"shorts3","price":"14","itemID":4},
@@ -822,44 +804,68 @@
 
             ],
                 // this is the list that will go to the cart
-                cartlist: [],
-                // just a fix for quantity
-                cartlistindex:[],
+                cartobj: {},
+
             },
             methods: {
-                addcartcount: function(index) {
-                    this.shopitemcount++;
+                // frontend functions
+                addcartcount: function(itemID) {
+                    this.testcount++;
+                    cartobj = {}
                     // if index exist in cartlist add to quantity in cart
-                    if (this.cartlistindex.includes(index)){
-                        this.cartlist[index].qty++
-                        // if not add the item into the cartlist so it can be displayed
+                    var cartitemID = itemID.toString();
+                    if (cartitemID in this.cartobj){
+                        this.cartobj[cartitemID].qty++;
                     } else {
-                        this.testlist[index]['qty'] = 1;
-                        this.cartlistindex.push(index)
-                        this.cartlist.push(this.testlist[index]);
+
+                        for (index in this.datalist){
+                            if (this.datalist[index]["itemID"] == itemID){
+                                cartitemID = itemID.toString();
+                                this.cartobj[cartitemID] = this.datalist[index];
+                                this.cartobj[cartitemID]["qty"] = 1;
+                            }
+                        }
                     }
-                    if (this.isActive == false){
-                        this.isActive == true;
-                    }
+
+                    todisplayprice = 0;
+                    this.shopitemcount = 0;
+                    for (inneritemID in this.cartobj){
+                        this.shopitemcount += this.cartobj[inneritemID].qty 
+                        todisplayprice += this.cartobj[inneritemID].price * this.cartobj[inneritemID].qty 
+                    } 
+                    this.displayprice = todisplayprice.toFixed(2);
+
+
                      // delete this item from the cart
-                },deletethis: function(index){
-                    this.cartlist.splice(index,1);
+                },deletethis: function(itemID){
+                    delete this.cartobj[itemID];
+                    
+                    todisplayprice = 0;
+                    this.shopitemcount = 0;
+                    for (inneritemID in this.cartobj){
+                        this.shopitemcount += this.cartobj[inneritemID].qty 
+                        todisplayprice += this.cartobj[inneritemID].price * this.cartobj[inneritemID].qty 
+                    } 
+                    this.displayprice = todisplayprice.toFixed(2);
                 }
             }
         })
 
     </script>
-
-    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    
+<!-- 
+    jQuery (Necessary for All JavaScript Plugins) 
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
+    Popper js
     <script src="js/popper.min.js"></script>
-    <!-- Bootstrap js -->
+     Bootstrap js 
     <script src="js/bootstrap.min.js"></script>
-    <!-- Plugins js -->
+    Plugins js
     <script src="js/plugins.js"></script>
-    <!-- Active js -->
-    <script src="js/active.js"></script>
+    Active js 
+    <script src="js/active.js"></script>  -->
+
+
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

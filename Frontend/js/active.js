@@ -167,13 +167,13 @@
     }
 
     // :: 10.0 ScrollUp Active Code
-    if ($.fn.scrollUp) {
-        $.scrollUp({
-            scrollSpeed: 1000,
-            easingType: 'easeInOutQuart',
-            scrollText: '<i class="ti-angle-up" aria-hidden="true"></i>'
-        });
-    }
+    // if ($.fn.scrollUp) {
+    //     $.scrollUp({
+    //         scrollSpeed: 1000,
+    //         easingType: 'easeInOutQuart',
+    //         scrollText: '<i class="ti-angle-up" aria-hidden="true"></i>'
+    //     });
+    // }
 
     // :: 11.0 Slider Range Price Active Code
     $('.slider-range-price').each(function () {
