@@ -113,8 +113,9 @@ def update_item(item_id):
     inventory = Inventory.query.filter_by(item_id=item_id).first()
     
     if inventory:
-        data = request.get_json()
-        print(inventory)
+        json_data = request.get_json()
+        data = json_data["data"]
+        print(data)
         
         if data['item_name']:
             inventory.item_name = data['item_name']
