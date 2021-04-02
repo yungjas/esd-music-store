@@ -8,6 +8,7 @@ from invokes import invoke_http
 
 import amqp_setup
 import pika
+import amqp_receiver
 
 app = Flask(__name__)
 CORS(app)
@@ -66,6 +67,12 @@ def processPlaceOrder(order):
         amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="order.error", 
             body=error_desc, properties=pika.BasicProperties(delivery_mode = 2))
 
+        #amqp_receiver.consume_message()
+        # consume messages from queue
+        # error_msg = amqp_setup.channel.basic_consume(queue="Error_Music", on_message_callback=callback, auto_ack=True)
+        # amqp_setup.channel.start_consuming()
+        # amqp_setup.channel.stop_consuming()
+
         invoke_http(error_url, method="POST", json=error_order)
         
         #print("Order status ({:d}) sent to the error microservice:".format(code), order_result)
@@ -92,16 +99,28 @@ def processPlaceOrder(order):
                     invoke_http(inventory_url + "/" + item_info["data"]["item_id"], method="PUT", json=item_info)
 
                 # invoke error microservice
+                error_cat_insufficient = "Insufficient stock"
+                error_desc_insufficient = item_info["data"]["item_name"] + " is currently out of stock"
+
                 error_insufficient_stock = {
-                    "error_category": "Insufficient stock",
-                    "error_desc": item_info["data"]["item_name"] + " is currently out of stock"
+                    "error_category": error_cat_insufficient,
+                    "error_desc": error_desc_insufficient
                 }
+
+                # if possible consume messages from amqp and save to database
+                print('\n\n-----Publishing the (inventory error) message with routing_key=inventory.error-----')
+                amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="inventory.error", 
+                    body=error_desc_insufficient, properties=pika.BasicProperties(delivery_mode = 2))
                 
                 print('\n\n-----Invoking error microservice as there is insufficient stock-----')
                 invoke_http(error_url, method="POST", json=error_insufficient_stock)
 
             # when order quantity is more than item quantity
             elif each_order_item["quantity"] > item_info["data"]["item_quantity"]:
+                print('\n\n-----Publishing the (inventory error) message with routing_key=inventory.error-----')
+                amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="inventory.error", 
+                    body=error_desc_insufficient, properties=pika.BasicProperties(delivery_mode = 2))
+                
                 print('\n\n-----Invoking error microservice as order quantity is more than item quantity-----')
                 invoke_http(error_url, method="POST", json=error_insufficient_stock)
 
@@ -117,14 +136,18 @@ def processPlaceOrder(order):
         # invoke error microservice here if payment transaction is not successful
         code = payment_result["code"]
         if code not in range(200, 300):
-            error_cat = "Payment"
-            error_desc = "Payment failure"
+            error_cat_payment = "Payment"
+            error_desc_payment = "Payment failure"
 
             error_payment = {
-                "error_category": error_cat,
-                "error_desc": error_desc
+                "error_category": error_cat_payment,
+                "error_desc": error_desc_payment
             }
 
+            print('\n\n-----Publishing the (payment error) message with routing_key=payment.error-----')
+            amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="payment.error", 
+                body=error_desc_payment, properties=pika.BasicProperties(delivery_mode = 2))
+            
             print('\n\n-----Invoking error microservice as payment fails-----')
             invoke_http(error_url, method="POST", json=error_payment)
             print("Payment status ({:d}) sent to the error microservice:".format(code), payment_result)
