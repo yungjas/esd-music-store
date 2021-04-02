@@ -84,15 +84,35 @@ def processPlaceOrder(order):
             print("item_info:", item_info)
 
             if item_info["data"]["item_quantity"] == 0:
-                print("ItemID " + item_info["data"]["item_id"] + " is out of stock")
+                # make sure status is set to out of stock
+                if item_info["data"]["item_status"] != "Out of Stock":
+                    item_info["data"]["item_status"] = "Out of Stock"
+
+                    # update inventory database
+                    invoke_http(inventory_url + "/" + item_info["data"]["item_id"], method="PUT", json=item_info)
+
+                # invoke error microservice
+                error_insufficient_stock = {
+                    "error_category": "Insufficient stock",
+                    "error_desc": item_info["data"]["item_name"] + " is currently out of stock"
+                }
+                
+                print('\n\n-----Invoking error microservice as there is insufficient stock-----')
+                invoke_http(error_url, method="POST", json=error_insufficient_stock)
+
+            # when order quantity is more than item quantity
+            elif each_order_item["quantity"] > item_info["data"]["item_quantity"]:
+                print('\n\n-----Invoking error microservice as order quantity is more than item quantity-----')
+                invoke_http(error_url, method="POST", json=error_insufficient_stock)
 
             # don't add to total amount if an item has insufficient stock
             else:
                 total_amount += (item_info["data"]["item_price"]) * (each_order_item["quantity"])
-                
-        # invoke payment microservice - charge total amount
-        print("\n-----Invoking payment microservice-----")
-        payment_result = invoke_http(payment_url, method="POST", json=total_amount)
+        
+        if total_amount > 0:
+            # invoke payment microservice - charge total amount
+            print("\n-----Invoking payment microservice-----")
+            payment_result = invoke_http(payment_url, method="POST", json=total_amount)
 
         # invoke error microservice here if payment transaction is not successful
         code = payment_result["code"]
@@ -116,15 +136,10 @@ def processPlaceOrder(order):
                 item_info = invoke_http(inventory_url + "/" + each_order_item["item_id"], method="GET", json=each_order_item["item_id"])
                 print("item_info:", item_info)
 
-                # update quantity
-                item_info["data"]["item_quantity"] = item_info["data"]["item_quantity"] - each_order_item["quantity"]
-                print(item_info["data"]["item_quantity"])
-
-                # if after updating quantity, the quantity reaches 0
-                if item_info["data"]["item_quantity"] == 0:
-                    # update item status
-                    item_info["data"]["item_status"] = "Out of Stock"
-                    print(item_info)
+                # only update quantity when quantity > 0
+                if item_info["data"]["item_quantity"] > 0:
+                    item_info["data"]["item_quantity"] = item_info["data"]["item_quantity"] - each_order_item["quantity"]
+                    print(item_info["data"]["item_quantity"])
 
                 invoke_http(inventory_url + "/" + each_order_item["item_id"], method="PUT", json=item_info)
     
