@@ -73,7 +73,7 @@ def processPlaceOrder(order):
             if item_info["data"]["item_quantity"] == 0:
                 print("ItemID " + item_info["data"]["item_id"] + " is out of stock")
 
-            # invoke order microservice and payment microservice if sufficient stock
+            # don't add to total amount if an item has insufficient stock
             else:
                 total_amount += (item_info["data"]["item_price"]) * (each_order_item["quantity"])
                 
