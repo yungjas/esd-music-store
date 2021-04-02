@@ -160,6 +160,8 @@
                                                         class="btn btn-sm btn-cart">Cart</a>
                                                     <a @click="savecart()" href="checkout.html"
                                                         class="btn btn-sm btn-checkout">Checkout</a>
+                                                    <a @click="clearcart()" 
+                                                        class="btn btn-sm ">Clear</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -231,7 +233,7 @@
             </header>
             <!-- ****** Header Area End ****** -->
             <div id="app">
-
+                {{testcount}}
                 <section class="top-discount-area d-md-flex align-items-center">
                     <!-- Single Discount Area -->
                     <div class="single-discount-area">
@@ -508,7 +510,8 @@
                                             <div class="product-img">
                                                 <img src="img/product-img/product-1.jpg" alt="">
                                                 <div class="product-quicview">
-                                                    <a href="#" data-toggle="modal" data-target="#quickview"><i
+                                                    
+                                                    <a @click="quickview(0)" href="#" data-toggle="modal" data-target="#quickview"><i
                                                             class="ti-plus"></i></a>
                                                 </div>
                                             </div>
@@ -841,6 +844,14 @@
             },
             methods: {
                 // frontend functions
+                clearcart: function () {
+                    this.cartobj = {};
+                    this.shopitemcount = 0;
+                    this.displayprice = 0;
+                    localStorage.cart = {}
+                    localStorage.price = 0
+                    localStorage.qty = 0
+                },
                 addcartcount: function (itemID) {
                     this.testcount++;
                     cartobj = {}
@@ -884,6 +895,8 @@
                     localStorage.setItem('cart', parsed);
                     localStorage.price = this.displayprice;
                     localStorage.qty = this.shopitemcount;
+                }, quickview(itemID){
+                    this.testcount = 69
                 }
             }
         })
