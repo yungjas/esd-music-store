@@ -6,6 +6,9 @@ import os
 import requests
 from invokes import invoke_http
 
+import amqp_setup
+import pika
+
 app = Flask(__name__)
 CORS(app)
 
@@ -57,8 +60,18 @@ def processPlaceOrder(order):
         }
 
         print('\n\n-----Invoking error microservice as order fails-----')
+        
+        # if possible consume messages from amqp and save to database
+        print('\n\n-----Publishing the (order error) message with routing_key=order.error-----')
+        amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="order.error", 
+            body=error_desc, properties=pika.BasicProperties(delivery_mode = 2))
+
         invoke_http(error_url, method="POST", json=error_order)
-        print("Order status ({:d}) sent to the error microservice:".format(code), order_result)
+        
+        #print("Order status ({:d}) sent to the error microservice:".format(code), order_result)
+
+        print("\nOrder status ({:d}) published to the RabbitMQ Exchange:".format(
+            code), order_result)
 
     # if order creation successful
     else:    
