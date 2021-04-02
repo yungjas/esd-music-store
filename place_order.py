@@ -12,7 +12,7 @@ CORS(app)
 order_url = "http://localhost:6001/order"
 inventory_url = "http://localhost:6000/inventory"
 payment_url = "http://localhost:6002/payment"
-error_url = ""
+error_url = "http://localhost:6003/error"
 
 @app.route("/place_order", methods=['POST'])
 def place_order():
@@ -45,30 +45,75 @@ def processPlaceOrder(order):
     order_result = invoke_http(order_url, method="POST", json=order)
     print("order_result:", order_result)
 
-    # invoke error microservice here
-    
-    # invoke inventory microservice to check if item quantity is sufficient
-    # if not then trigger error microservice
-    print("\n-----Invoking inventory microservice-----")
-    for each_order_item in order["cart_item"]:
-        print(each_order_item["item_id"])
-        item_info = invoke_http(inventory_url + "/" + each_order_item["item_id"], method="GET", json=each_order_item["item_id"])
-        print("item_info:", item_info)
+    # invoke error microservice here if order creation is not successful
+    code = order_result["code"]
+    if code not in range(200, 300):
+        error_cat = "Order"
+        error_desc = "Order creation failure"
 
-        if item_info["data"]["item_quantity"] == 0:
-            print("ItemID " + item_info["data"]["item_id"] + " is out of stock")
+        error_order = {
+            "error_category": error_cat,
+            "error_desc": error_desc
+        }
 
-        # invoke order microservice and payment microservice if sufficient stock
+        print('\n\n-----Invoking error microservice as order fails-----')
+        invoke_http(error_url, method="POST", json=error_order)
+        print("Order status ({:d}) sent to the error microservice:".format(code), order_result)
+
+    # if order creation successful
+    else:    
+        # invoke inventory microservice to check if item quantity is sufficient
+        # if not then trigger error microservice
+        print("\n-----Invoking inventory microservice-----")
+        for each_order_item in order["cart_item"]:
+            print(each_order_item["item_id"])
+            item_info = invoke_http(inventory_url + "/" + each_order_item["item_id"], method="GET", json=each_order_item["item_id"])
+            print("item_info:", item_info)
+
+            if item_info["data"]["item_quantity"] == 0:
+                print("ItemID " + item_info["data"]["item_id"] + " is out of stock")
+
+            # invoke order microservice and payment microservice if sufficient stock
+            else:
+                total_amount += (item_info["data"]["item_price"]) * (each_order_item["quantity"])
+                
+        # invoke payment microservice - charge total amount
+        print("\n-----Invoking payment microservice-----")
+        payment_result = invoke_http(payment_url, method="POST", json=total_amount)
+
+        # invoke error microservice here if payment transaction is not successful
+        code = payment_result["code"]
+        if code not in range(200, 300):
+            error_cat = "Payment"
+            error_desc = "Payment failure"
+
+            error_payment = {
+                "error_category": error_cat,
+                "error_desc": error_desc
+            }
+
+            print('\n\n-----Invoking error microservice as payment fails-----')
+            invoke_http(error_url, method="POST", json=error_payment)
+            print("Payment status ({:d}) sent to the error microservice:".format(code), payment_result)
+        
+        # after successful payment, update item quantity in inventory
         else:
-            total_amount += (item_info["data"]["item_price"]) * (each_order_item["quantity"])
-            # update quantity
-            item_info["data"]["item_quantity"] = item_info["data"]["item_quantity"] - each_order_item["quantity"]
-            print(item_info["data"]["item_quantity"])
-            invoke_http(inventory_url + "/" + each_order_item["item_id"], method="PUT", json=item_info)
-    
-    # invoke payment microservice - charge total amount
-    print("\n-----Invoking payment microservice-----")
-    payment_result = invoke_http(payment_url, method="POST", json=total_amount)
+            for each_order_item in order["cart_item"]:
+                print(each_order_item["item_id"])
+                item_info = invoke_http(inventory_url + "/" + each_order_item["item_id"], method="GET", json=each_order_item["item_id"])
+                print("item_info:", item_info)
+
+                # update quantity
+                item_info["data"]["item_quantity"] = item_info["data"]["item_quantity"] - each_order_item["quantity"]
+                print(item_info["data"]["item_quantity"])
+
+                # if after updating quantity, the quantity reaches 0
+                if item_info["data"]["item_quantity"] == 0:
+                    # update item status
+                    item_info["data"]["item_status"] = "Out of Stock"
+                    print(item_info)
+
+                invoke_http(inventory_url + "/" + each_order_item["item_id"], method="PUT", json=item_info)
     
     return {
         "code": 201,
@@ -77,10 +122,6 @@ def processPlaceOrder(order):
             "payment_result": payment_result
         }
     }
-
-    # invoke error microservice
-
-    # invoke notification microservice
     
 
 # Execute this program if it is run as a main script (not by 'import')
@@ -88,11 +129,3 @@ if __name__ == "__main__":
     print("This is flask " + os.path.basename(__file__) +
           " for placing an order...")
     app.run(host="0.0.0.0", port=6100, debug=True)
-    # Notes for the parameters:
-    # - debug=True will reload the program automatically if a change is detected;
-    #   -- it in fact starts two instances of the same flask program,
-    #       and uses one of the instances to monitor the program changes;
-    # - host="0.0.0.0" allows the flask program to accept requests sent from any IP/host (in addition to localhost),
-    #   -- i.e., it gives permissions to hosts with any IP to access the flask program,
-    #   -- as long as the hosts can already reach the machine running the flask program along the network;
-    #   -- it doesn't mean to use http://0.0.0.0 to access the flask program.
