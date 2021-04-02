@@ -100,13 +100,19 @@ def processPlaceOrder(order):
                 print('\n\n-----Invoking error microservice as there is insufficient stock-----')
                 invoke_http(error_url, method="POST", json=error_insufficient_stock)
 
+            # when order quantity is more than item quantity
+            elif each_order_item["quantity"] > item_info["data"]["item_quantity"]:
+                print('\n\n-----Invoking error microservice as order quantity is more than item quantity-----')
+                invoke_http(error_url, method="POST", json=error_insufficient_stock)
+
             # don't add to total amount if an item has insufficient stock
             else:
                 total_amount += (item_info["data"]["item_price"]) * (each_order_item["quantity"])
-                
-        # invoke payment microservice - charge total amount
-        print("\n-----Invoking payment microservice-----")
-        payment_result = invoke_http(payment_url, method="POST", json=total_amount)
+        
+        if total_amount > 0:
+            # invoke payment microservice - charge total amount
+            print("\n-----Invoking payment microservice-----")
+            payment_result = invoke_http(payment_url, method="POST", json=total_amount)
 
         # invoke error microservice here if payment transaction is not successful
         code = payment_result["code"]
