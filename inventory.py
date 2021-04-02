@@ -123,7 +123,7 @@ def update_item(item_id):
             inventory.artist = data['artist']
         if data['item_price']:
             inventory.item_price = data['item_price']
-        if data['item_quantity']:
+        if data['item_quantity'] or data['item_quantity'] == 0:
             inventory.item_quantity = data['item_quantity']
         if data['item_category']:
             inventory.item_category = data['item_category']

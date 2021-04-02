@@ -7,6 +7,6 @@ USE `error`;
 CREATE TABLE `error` (
   `error_id` int(11) NOT NULL AUTO_INCREMENT,
   `error_category` varchar(64) NULL,
-  `error_desc` varchar(64) NOT NULL,
+  `error_desc` varchar(255) NOT NULL,
   PRIMARY KEY (`error_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
