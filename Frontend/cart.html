@@ -256,25 +256,24 @@
                                         <tr v-for="(item,index) in cartobj">
                                             <td class="cart_product_img d-flex align-items-center">
                                                 <a href="#"><img
-                                                    v-bind:src=" 'img/product-img/product-' + item.itemID + '.jpg'"
-                                                     alt="Product"></a>
+                                                        v-bind:src=" 'img/product-img/product-' + item.itemID + '.jpg'"
+                                                        alt="Product"></a>
 
                                                 <h6>{{item.name}}</h6>
                                             </td>
                                             <td class="price"><span> ${{item.price}} </span></td>
                                             <td class="qty">
                                                 <div class="quantity">
-                                                    <span class="qty-minus"
-                                                        @click = "item.qty--" 
+                                                    <span class="qty-minus" @click="item.qty--"
                                                         onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i
                                                             class="fa fa-minus" aria-hidden="true"></i></span>
                                                     <!-- <span class="qty-minus" @click={{item.qty--}}><i class="fa fa-minus" aria-hidden="true"></i></span>
                                                              -->
-                                                            
+
                                                     <input type="number" class="qty-text" id="qty" step="1" min="1"
-                                                        max="99" name="quantity" v-bind:value="item.qty" v-model="item.qty" >
-                                                    <span class="qty-plus"
-                                                        @click = "item.qty++"
+                                                        max="99" name="quantity" v-bind:value="item.qty"
+                                                        v-model="item.qty">
+                                                    <span class="qty-plus" @click="item.qty++"
                                                         onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i
                                                             class="fa fa-plus" aria-hidden="true"></i></span>
                                                 </div>
@@ -354,9 +353,14 @@
 
                                     <li><span>Subtotal</span> <span>${{displayprice}}</span></li>
                                     <li><span>Shipping</span> <span>Free</span></li>
-                                    <li><span><strong>Total</strong></span> <span><strong>${{displayprice}}</strong></span></li>
+                                    <li><span><strong>Total</strong></span>
+                                        <span><strong>${{displayprice}}</strong></span></li>
                                 </ul>
-                                <a href="checkout.html" class="btn karl-checkout-btn">Proceed to checkout</a>
+                                
+                                <a v-if="thereisnonegative" href="checkout.html" class="btn karl-checkout-btn">Proceed to checkout</a>
+                                <a v-if="thereisnegative" class="btn karl-checkout-btn" style="opacity: 50%;">Proceed to checkout</a>
+
+                                <p v-if="thereisnegative" style="color: red;"> please enter a positive quantity </p>
                             </div>
                         </div>
                     </div>
@@ -369,24 +373,7 @@
                 <div class="container">
                     <div class="row">
                         <!-- Single Footer Area Start -->
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <div class="single_footer_area">
-                                <div class="footer-logo">
-                                    <img src="img/core-img/logo.png" alt="">
-                                </div>
-                                <div class="copywrite_text d-flex align-items-center">
-                                    <p>
-                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                        Copyright &copy;
-                                        <script>document.write(new Date().getFullYear());</script> All rights reserved |
-                                        Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-                                            href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed
-                                        by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+
                         <!-- Single Footer Area Start -->
                         <div class="col-12 col-sm-6 col-md-3 col-lg-2">
                             <div class="single_footer_area">
@@ -454,7 +441,9 @@
 
                 shopitemcount: 0,
                 displayprice: 0,
-                test:0,
+                test: 0,
+                thereisnonegative: true,
+                thereisnegative: false,
                 // i assume this is where the dataset of SQL will go 
                 // (`item_name`, `artist`, `item_id`, `item_price`, `item_quantity`, `item_category`, `item_status`)
                 datalist: [{ "name": "dress", "price": "11", "itemID": 0 },
@@ -490,21 +479,41 @@
                     localStorage.cart = {}
                     localStorage.price = 0
                     localStorage.qty = 0
-                }, 
+                },
                 savecart: function () {
-                    todisplayprice = 0;
-                    this.shopitemcount = 0;
-                    for (inneritemID in this.cartobj) {
-                        this.shopitemcount += Number(this.cartobj[inneritemID].qty)
-                        todisplayprice += this.cartobj[inneritemID].price * this.cartobj[inneritemID].qty
+                    
+
+                    if (this.checknegative()) {
+                        this.thereisnonegative = false;
+                        this.thereisnegative = true;
+                    } else {
+
+                        todisplayprice = 0;
+                        this.shopitemcount = 0;
+                        for (inneritemID in this.cartobj) {
+                            this.shopitemcount += Number(this.cartobj[inneritemID].qty)
+                            todisplayprice += this.cartobj[inneritemID].price * this.cartobj[inneritemID].qty
+                        }
+
+                        this.displayprice = todisplayprice.toFixed(2);
+                        const parsed = JSON.stringify(this.cartobj);
+                        localStorage.setItem('cart', parsed);
+                        localStorage.price = this.displayprice;
+                        localStorage.qty = this.shopitemcount;
+                        this.thereisnonegative = true;
+                        this.thereisnegative = false;
                     }
 
-                    this.displayprice = todisplayprice.toFixed(2);
-                    const parsed = JSON.stringify(this.cartobj);
-                    localStorage.setItem('cart', parsed);
-                    localStorage.price = this.displayprice;
-                    localStorage.qty = this.shopitemcount;
+                },
+                checknegative: function () {
+                    for (inneritemID in this.cartobj) {
+                        if (Number(this.cartobj[inneritemID].qty < 0)) {
+                            return true
+                        }
+                    }
+                    return false
                 }
+
             }
         })
     </script>
