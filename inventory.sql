@@ -28,7 +28,7 @@ CREATE TABLE `inventory` (
   `artist` varchar(64) NULL,
   `item_id` varchar(64) NOT NULL,
   `item_price` decimal(10,2) NOT NULL,
-  `item_quantity` int(11) DEFAULT NULL,
+  `item_quantity` int(11) NOT NULL,
   `item_category` varchar(64) NOT NULL,
   `item_status` varchar(64) NOT NULL,
   PRIMARY KEY (`item_id`)
