@@ -29,8 +29,9 @@
 </head>
 
 <!--  v-bind:class="{'cart-data-open': isActive}" -->
-<body>
 
+<body>
+    
     <div class="catagories-side-menu">
         <!-- Close Icon -->
         <div id="sideMenuClose">
@@ -104,7 +105,7 @@
 
     <div id="wrapper">
         <div id="app1">
-
+            <!-- {{cartobj}} -->
             <!-- ****** Header Area Start ****** -->
             <header class="header_area bg-img background-overlay-white"
                 style="background-image: url(img/bg-img/bg-1.jpg);">
@@ -126,35 +127,39 @@
                                             <!-- asd -->
                                             <!-- add quantity using vue  -->
                                             <!-- cost also can use vue </i> Your Bag $20 </a>  -->
-                                            <a href="#" id="header-cart-btn" target="_blank"> <span
-                                                    class="cart_quantity">{{shopitemcount}}</span> <i
-                                                    class="ti-bag"></i>
-                                                Your
-                                                Bag </a>
+                                            <a href="#" id="header-cart-btn" target="_blank">
+                                                <span class="cart_quantity">{{shopitemcount}}</span>
+                                                <i class="ti-bag"></i>
+                                                Your Bag ${{displayprice}}
+                                            </a>
                                             <!-- Cart List Area Start -->
                                             <ul class="cart-list">
 
                                                 <li v-for="(item, index) in cartobj">
-                                                
-                                                    <a href="#" class="image"><img v-bind:src=" 'img/product-img/product-' + item.itemID + '.jpg'"
+
+                                                    <a href="#" class="image"><img
+                                                            v-bind:src=" 'img/product-img/product-' + item.itemID + '.jpg'"
                                                             class="cart-thumb" alt=""></a>
                                                     <div class="cart-item-desc">
                                                         <button @click="deletethis(index)" style="float:right;"
                                                             class="btn btn-outline-dark btn-sm"> delete </button>
                                                         <h6><a href="#">{{item.name}}</a></h6>
 
-                                                        <p>{{item.qty}}x - <span class="price">${{item.price}}</span></p>
+                                                        <p>{{item.qty}}x - <span class="price">${{item.price}}</span>
+                                                        </p>
 
                                                     </div>
-                                    
+
                                                 </li>
 
 
 
                                                 <li class="total">
                                                     <span class="pull-right">${{displayprice}}</span>
-                                                    <a href="cart.html" class="btn btn-sm btn-cart">Cart</a>
-                                                    <a href="checkout.html" class="btn btn-sm btn-checkout">Checkout</a>
+                                                    <a @click="savecart()" href="cart.html"
+                                                        class="btn btn-sm btn-cart">Cart</a>
+                                                    <a @click="savecart()" href="checkout.html"
+                                                        class="btn btn-sm btn-checkout">Checkout</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -248,6 +253,7 @@
                 <!-- ****** Quick View Modal Area Start ****** -->
                 <div class="modal fade" id="quickview" tabindex="-1" role="dialog" aria-labelledby="quickview"
                     aria-hidden="true">
+                    <!-- asda -->
                     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
@@ -512,7 +518,8 @@
                                                 <p>Jeans midi cocktail dress</p>
                                                 <!-- Add to Cart -->
                                                 <!-- asd -->
-                                                <a @click="addcartcount(0)" href="#" class="add-to-cart-btn">ADD TO CART</a>
+                                                <a @click="addcartcount(0)" href="#" class="add-to-cart-btn">ADD TO
+                                                    CART</a>
                                             </div>
                                         </div>
 
@@ -532,7 +539,8 @@
                                                 <h4 class="product-price">$39.90</h4>
                                                 <p>Jeans midi cocktail dress</p>
                                                 <!-- Add to Cart -->
-                                                <a @click="addcartcount(1)" href="#" class="add-to-cart-btn">ADD TO CART</a>
+                                                <a @click="addcartcount(1)" href="#" class="add-to-cart-btn">ADD TO
+                                                    CART</a>
                                             </div>
                                         </div>
 
@@ -552,7 +560,8 @@
                                                 <h4 class="product-price">$39.90</h4>
                                                 <p>Jeans midi cocktail dress</p>
                                                 <!-- Add to Cart -->
-                                                <a @click="addcartcount(2)" href="#" class="add-to-cart-btn">ADD TO CART</a>
+                                                <a @click="addcartcount(2)" href="#" class="add-to-cart-btn">ADD TO
+                                                    CART</a>
                                             </div>
                                         </div>
 
@@ -572,7 +581,8 @@
                                                 <h4 class="product-price">$39.90</h4>
                                                 <p>Jeans midi cocktail dress</p>
                                                 <!-- Add to Cart -->
-                                                <a @click="addcartcount(3)" href="#" class="add-to-cart-btn">ADD TO CART</a>
+                                                <a @click="addcartcount(3)" href="#" class="add-to-cart-btn">ADD TO
+                                                    CART</a>
                                             </div>
                                         </div>
 
@@ -592,7 +602,8 @@
                                                 <h4 class="product-price">$39.90</h4>
                                                 <p>Jeans midi cocktail dress</p>
                                                 <!-- Add to Cart -->
-                                                <a @click="addcartcount(4)" href="#" class="add-to-cart-btn">ADD TO CART</a>
+                                                <a @click="addcartcount(4)" href="#" class="add-to-cart-btn">ADD TO
+                                                    CART</a>
                                             </div>
                                         </div>
 
@@ -612,7 +623,8 @@
                                                 <h4 class="product-price">$39.90</h4>
                                                 <p>Jeans midi cocktail dress</p>
                                                 <!-- Add to Cart -->
-                                                <a @click="addcartcount(5)" href="#" class="add-to-cart-btn">ADD TO CART</a>
+                                                <a @click="addcartcount(5)" href="#" class="add-to-cart-btn">ADD TO
+                                                    CART</a>
                                             </div>
                                         </div>
 
@@ -632,7 +644,8 @@
                                                 <h4 class="product-price">$39.90</h4>
                                                 <p>Jeans midi cocktail dress</p>
                                                 <!-- Add to Cart -->
-                                                <a @click="addcartcount(6)" href="#" class="add-to-cart-btn">ADD TO CART</a>
+                                                <a @click="addcartcount(6)" href="#" class="add-to-cart-btn">ADD TO
+                                                    CART</a>
                                             </div>
                                         </div>
 
@@ -652,7 +665,8 @@
                                                 <h4 class="product-price">$39.90</h4>
                                                 <p>Jeans midi cocktail dress</p>
                                                 <!-- Add to Cart -->
-                                                <a @click="addcartcount(7)" href="#" class="add-to-cart-btn">ADD TO CART</a>
+                                                <a @click="addcartcount(7)" href="#" class="add-to-cart-btn">ADD TO
+                                                    CART</a>
                                             </div>
                                         </div>
 
@@ -672,7 +686,8 @@
                                                 <h4 class="product-price">$39.90</h4>
                                                 <p>Jeans midi cocktail dress</p>
                                                 <!-- Add to Cart -->
-                                                <a @click="addcartcount(8)" href="#" class="add-to-cart-btn">ADD TO CART</a>
+                                                <a @click="addcartcount(8)" href="#" class="add-to-cart-btn">ADD TO
+                                                    CART</a>
                                             </div>
                                         </div>
                                     </div>
@@ -785,41 +800,58 @@
 
     <!-- vue -->
     <script type="application/javascript">
-      var app = new Vue({
+        var app = new Vue({
             el: "#app1",
             data: {
 
                 shopitemcount: 0,
                 displayprice: 0,
-                testcount:0,
+                testcount: 0,
                 // i assume this is where the dataset of SQL will go 
                 // (`item_name`, `artist`, `item_id`, `item_price`, `item_quantity`, `item_category`, `item_status`)
-                datalist: [{"name":"dress","price":"11","itemID":0},
-                {"name":"jeans","price":"11","itemID":1},
-                {"name":"shorts1","price":"12","itemID":2},
-                {"name":"shorts2","price":"13","itemID":3},
-                {"name":"shorts3","price":"14","itemID":4},
-                {"name":"shorts4","price":"15","itemID":5},
-                {"name":"shorts5","price":"16","itemID":6},
+                datalist: [{ "name": "dress", "price": "11", "itemID": 0 },
+                { "name": "jeans", "price": "11", "itemID": 1 },
+                { "name": "shorts1", "price": "12", "itemID": 2 },
+                { "name": "shorts2", "price": "13", "itemID": 3 },
+                { "name": "shorts3", "price": "14", "itemID": 4 },
+                { "name": "shorts4", "price": "15", "itemID": 5 },
+                { "name": "shorts5", "price": "16", "itemID": 6 },
 
-            ],
+                ],
                 // this is the list that will go to the cart
                 cartobj: {},
 
             },
+            mounted() {
+
+                if (localStorage.getItem('cart')) {
+                    try {
+                        this.cartobj = JSON.parse(localStorage.getItem('cart'));
+                    } catch (e) {
+                        localStorage.removeItem('cart');
+                    }
+                }
+                if (localStorage.price) {
+                    this.displayprice = localStorage.price;
+                }
+                if (localStorage.qty) {
+                    this.shopitemcount = localStorage.qty;
+                }
+
+            },
             methods: {
                 // frontend functions
-                addcartcount: function(itemID) {
+                addcartcount: function (itemID) {
                     this.testcount++;
                     cartobj = {}
                     // if index exist in cartlist add to quantity in cart
                     var cartitemID = itemID.toString();
-                    if (cartitemID in this.cartobj){
+                    if (cartitemID in this.cartobj) {
                         this.cartobj[cartitemID].qty++;
                     } else {
 
-                        for (index in this.datalist){
-                            if (this.datalist[index]["itemID"] == itemID){
+                        for (index in this.datalist) {
+                            if (this.datalist[index]["itemID"] == itemID) {
                                 cartitemID = itemID.toString();
                                 this.cartobj[cartitemID] = this.datalist[index];
                                 this.cartobj[cartitemID]["qty"] = 1;
@@ -829,41 +861,46 @@
 
                     todisplayprice = 0;
                     this.shopitemcount = 0;
-                    for (inneritemID in this.cartobj){
-                        this.shopitemcount += this.cartobj[inneritemID].qty 
-                        todisplayprice += this.cartobj[inneritemID].price * this.cartobj[inneritemID].qty 
-                    } 
+                    for (inneritemID in this.cartobj) {
+                        this.shopitemcount +=  Number(this.cartobj[inneritemID].qty)
+                        todisplayprice += this.cartobj[inneritemID].price * this.cartobj[inneritemID].qty
+                    }
                     this.displayprice = todisplayprice.toFixed(2);
 
 
-                     // delete this item from the cart
-                },deletethis: function(itemID){
+                    // delete this item from the cart
+                }, deletethis: function (itemID) {
                     delete this.cartobj[itemID];
-                    
+
                     todisplayprice = 0;
                     this.shopitemcount = 0;
-                    for (inneritemID in this.cartobj){
-                        this.shopitemcount += this.cartobj[inneritemID].qty 
-                        todisplayprice += this.cartobj[inneritemID].price * this.cartobj[inneritemID].qty 
-                    } 
+                    for (inneritemID in this.cartobj) {
+                        this.shopitemcount +=  Number(this.cartobj[inneritemID].qty)
+                        todisplayprice += this.cartobj[inneritemID].price * this.cartobj[inneritemID].qty
+                    }
                     this.displayprice = todisplayprice.toFixed(2);
+                }, savecart() {
+                    const parsed = JSON.stringify(this.cartobj);
+                    localStorage.setItem('cart', parsed);
+                    localStorage.price = this.displayprice;
+                    localStorage.qty = this.shopitemcount;
                 }
             }
         })
 
     </script>
-    
-<!-- 
-    jQuery (Necessary for All JavaScript Plugins) 
+
+
+    jQuery (Necessary for All JavaScript Plugins)
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
     Popper js
     <script src="js/popper.min.js"></script>
-     Bootstrap js 
+    Bootstrap js
     <script src="js/bootstrap.min.js"></script>
     Plugins js
     <script src="js/plugins.js"></script>
-    Active js 
-    <script src="js/active.js"></script>  -->
+    Active js
+    <script src="js/active.js"></script>
 
 
 

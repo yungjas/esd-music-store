@@ -29,10 +29,8 @@
         {{shopitemcount}}
         {{displayprice}}
         {{testcount}}
-        <button @click="addcartcount(1)" class="icon-cross"> fuck la chaoi chibai
-
-        </button>
-
+        <button @click="addcartcount(1)" class="icon-cross"> fuck la chaoi chibai  </button> 
+        <button @click="savecart()" class="icon-cross"> save </button>
     </div>
 
 
@@ -59,13 +57,6 @@
                 cartobj: {},
                 // just a fix for quantity
                 cartlistindex: [],
-            }, mounted() {
-                if (localStorage.name) {
-                    this.name = localStorage.name;
-                }
-                if (localStorage.age) {
-                    this.age = localStorage.age;
-                }
             },
             methods: {
                 // frontend functions
@@ -99,10 +90,18 @@
                     // delete this item from the cart
                 }, deletethis: function (index) {
 
-                }, persist() {
-                    localStorage.cart = this.caratobj;
-
-                    console.log('now pretend I did more stuff...');
+                }, savecart() {
+                    const parsed = JSON.stringify(this.cartobj);
+                    localStorage.setItem('cart', parsed);
+                }
+            }, 
+            mounted() {
+                if (localStorage.getItem('cart')) {
+                    try {
+                        this.cats = JSON.parse(localStorage.getItem('cart'));
+                    } catch (e) {
+                        localStorage.removeItem('cart');
+                    }
                 }
             }
         })
