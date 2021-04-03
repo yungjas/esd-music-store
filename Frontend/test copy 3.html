@@ -24,9 +24,14 @@
 <body>
 
     <div id="app1">
+        <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
+        {{cartobj}}
+        {{shopitemcount}}
+        {{displayprice}}
+        {{testcount}}
+        <button @click="addcartcount(1)" class="icon-cross"> fuck la chaoi chibai
 
-        {{realdatalist}}
-
+        </button>
 
     </div>
 
@@ -67,7 +72,7 @@
             methods: {
                 // backend teste
 
-                getAllitem: function () {
+                getAllBooks: function () {
                     // on Vue instance created, load the book list
                     const response =
                         fetch(get_all_URL)
@@ -90,11 +95,42 @@
 
                 },
 
-            
-            },
-            created: function () {
-                // on Vue instance created, load the book list
-                this.getAllitem();
+                // frontend functions
+                addcartcount: function (itemID) {
+                    this.testcount++;
+                    cartobj = {}
+                    // if index exist in cartlist add to quantity in cart
+                    var cartitemID = itemID.toString();
+                    if (cartitemID in this.cartobj) {
+                        this.cartobj[cartitemID].qty++;
+                    } else {
+
+                        for (index in this.datalist) {
+                            if (this.datalist[index]["itemID"] == itemID) {
+                                cartitemID = itemID.toString();
+                                this.cartobj[cartitemID] = this.datalist[index];
+                                this.cartobj[cartitemID]["qty"] = 1;
+                            }
+                        }
+                    }
+
+                    todisplayprice = 0;
+                    todisplaycount = 0;
+                    for (inneritemID in this.cartobj) {
+                        todisplayprice += this.cartobj[inneritemID].price
+                        todisplaycount += this.cartobj[inneritemID].qty
+                    }
+                    this.displayprice = todisplayprice;
+                    this.shopitemcount = todisplaycount;
+
+                    // delete this item from the cart
+                }, deletethis: function (index) {
+
+                }, persist() {
+                    localStorage.cart = this.caratobj;
+
+                    console.log('now pretend I did more stuff...');
+                }
             }
         })
 
