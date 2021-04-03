@@ -92,12 +92,12 @@ def processPlaceOrder(order):
             print("item_info:", item_info)
 
             if item_info["data"]["item_quantity"] == 0:
-                # make sure status is set to out of stock
-                if item_info["data"]["item_status"] != "Out of Stock":
-                    item_info["data"]["item_status"] = "Out of Stock"
+                # # make sure status is set to out of stock
+                # if item_info["data"]["item_status"] != "Out of Stock":
+                #     item_info["data"]["item_status"] = "Out of Stock"
 
-                    # update inventory database
-                    invoke_http(inventory_url + "/" + item_info["data"]["item_id"], method="PUT", json=item_info)
+                #     # update inventory database
+                #     invoke_http(inventory_url + "/" + item_info["data"]["item_id"], method="PUT", json=item_info)
 
                 # invoke error microservice
                 error_cat_insufficient = "Insufficient stock"
@@ -164,6 +164,10 @@ def processPlaceOrder(order):
                 if item_info["data"]["item_quantity"] > 0:
                     item_info["data"]["item_quantity"] = item_info["data"]["item_quantity"] - each_order_item["quantity"]
                     print(item_info["data"]["item_quantity"])
+
+                # check if item quantity has reached 0, if have then update its status to Out of Stock
+                if item_info["data"]["item_quantity"] == 0:
+                    item_info["data"]["item_status"] = "Out of Stock"
 
                 invoke_http(inventory_url + "/" + each_order_item["item_id"], method="PUT", json=item_info)
     
