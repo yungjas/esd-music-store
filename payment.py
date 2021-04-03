@@ -76,7 +76,8 @@ def create_payment():
         resp = stripe.Charge.create( 
             amount = amount_in_cents,
             source = "tok_visa",
-            currency = "sgd"
+            currency = "sgd",
+            description = "Payment transaction successful"
         )
     except Exception as e:
         return jsonify(
