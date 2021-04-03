@@ -13,10 +13,10 @@ import amqp_receiver
 app = Flask(__name__)
 CORS(app)
 
-order_url = "http://localhost:6001/order"
-inventory_url = "http://localhost:6000/inventory"
-payment_url = "http://localhost:6002/payment"
-error_url = "http://localhost:6003/error"
+order_url = "http://localhost:7001/order"
+inventory_url = "http://localhost:7000/inventory"
+payment_url = "http://localhost:7002/payment"
+error_url = "http://localhost:7003/error"
 
 @app.route("/place_order", methods=['POST'])
 def place_order():
@@ -179,4 +179,4 @@ def processPlaceOrder(order):
 if __name__ == "__main__":
     print("This is flask " + os.path.basename(__file__) +
           " for placing an order...")
-    app.run(host="0.0.0.0", port=6100, debug=True)
+    app.run(host="0.0.0.0", port=7100, debug=True)

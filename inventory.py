@@ -174,4 +174,4 @@ def delete_item(item_id):
 
 if __name__ == '__main__':
     print("This is flask for " + os.path.basename(__file__) + ": inventory ...")
-    app.run(port=6000, debug=True)
+    app.run(port=7000, debug=True)

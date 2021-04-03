@@ -51,4 +51,4 @@ def create_error():
 
 if __name__ == "__main__":
     print("This is flask for " + os.path.basename(__file__) + ": processing errors ...")
-    app.run(port=6003, debug=True)
+    app.run(port=7003, debug=True)

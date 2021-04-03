@@ -140,4 +140,4 @@ def create_order():
 # specifies the port to run this microservice on
 if __name__ == '__main__':
     print("This is flask for " + os.path.basename(__file__) + ": manage orders ...")
-    app.run(port=6001, debug=True)
+    app.run(port=7001, debug=True)
