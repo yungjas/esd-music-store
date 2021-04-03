@@ -34,10 +34,10 @@ def place_order():
         except Exception as e:
             pass  # do nothing.
 
-    # if reached here, not a JSON request.
+    # if reached here, error occurred.
     return jsonify({
         "code": 400,
-        "message": "Invalid JSON input: " + str(request.get_data())
+        "message": "Error occurred while processing order, please try again later"
     }), 400
 
 def processPlaceOrder(order):
