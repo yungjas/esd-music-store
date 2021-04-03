@@ -31,7 +31,7 @@
 <!--  v-bind:class="{'cart-data-open': isActive}" -->
 
 <body>
-    
+
     <div class="catagories-side-menu">
         <!-- Close Icon -->
         <div id="sideMenuClose">
@@ -105,6 +105,7 @@
 
     <div id="wrapper">
         <div id="app1">
+            {{inventory}}
             <!-- {{cartobj}} -->
             <!-- ****** Header Area Start ****** -->
             <header class="header_area bg-img background-overlay-white"
@@ -160,8 +161,7 @@
                                                         class="btn btn-sm btn-cart">Cart</a>
                                                     <a @click="savecart()" href="checkout.html"
                                                         class="btn btn-sm btn-checkout">Checkout</a>
-                                                    <a @click="clearcart()" 
-                                                        class="btn btn-sm ">Clear</a>
+                                                    <a @click="clearcart()" class="btn btn-sm ">Clear</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -474,9 +474,9 @@
                                             <div class="product-img">
                                                 <img src="img/product-img/product-1.jpg" alt="">
                                                 <div class="product-quicview">
-                                                    
-                                                    <a @click="quickview(0)" href="#" data-toggle="modal" data-target="#quickview"><i
-                                                            class="ti-plus"></i></a>
+
+                                                    <a @click="quickview(0)" href="#" data-toggle="modal"
+                                                        data-target="#quickview"><i class="ti-plus"></i></a>
                                                 </div>
                                             </div>
                                             <!-- Product Description -->
@@ -767,6 +767,7 @@
 
     <!-- vue -->
     <script type="application/javascript">
+        var get_all_URL = "http://localhost:7000/inventory";
         var app = new Vue({
             el: "#app1",
             data: {
@@ -776,6 +777,7 @@
                 testcount: 0,
                 // i assume this is where the dataset of SQL will go 
                 // (`item_name`, `artist`, `item_id`, `item_price`, `item_quantity`, `item_category`, `item_status`)
+                // {"artist":"Travis Scott","item_category":"Rap & HipHop","item_id":"190758883625","item_name":"ASTROWORLD","item_price":8.99,"item_quantity":0,"item_status":"Out of Stock"}
                 datalist: [{ "name": "dress", "price": "11", "itemID": 0 },
                 { "name": "jeans", "price": "11", "itemID": 1 },
                 { "name": "shorts1", "price": "12", "itemID": 2 },
@@ -785,6 +787,8 @@
                 { "name": "shorts5", "price": "16", "itemID": 6 },
 
                 ],
+
+                "inventory": [],
                 // this is the list that will go to the cart
                 cartobj: {},
 
@@ -837,7 +841,7 @@
                     todisplayprice = 0;
                     this.shopitemcount = 0;
                     for (inneritemID in this.cartobj) {
-                        this.shopitemcount +=  Number(this.cartobj[inneritemID].qty)
+                        this.shopitemcount += Number(this.cartobj[inneritemID].qty)
                         todisplayprice += this.cartobj[inneritemID].price * this.cartobj[inneritemID].qty
                     }
                     this.displayprice = todisplayprice.toFixed(2);
@@ -850,7 +854,7 @@
                     todisplayprice = 0;
                     this.shopitemcount = 0;
                     for (inneritemID in this.cartobj) {
-                        this.shopitemcount +=  Number(this.cartobj[inneritemID].qty)
+                        this.shopitemcount += Number(this.cartobj[inneritemID].qty)
                         todisplayprice += this.cartobj[inneritemID].price * this.cartobj[inneritemID].qty
                     }
                     this.displayprice = todisplayprice.toFixed(2);
@@ -859,9 +863,36 @@
                     localStorage.setItem('cart', parsed);
                     localStorage.price = this.displayprice;
                     localStorage.qty = this.shopitemcount;
-                }, quickview(itemID){
+                }, quickview(itemID) {
                     this.testcount = 69
+                },// backend 
+
+                getAllitem: function () {
+                    // on Vue instance created, load the book list
+                    const response =
+                        fetch(get_all_URL)
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(response);
+                                if (data.code === 404) {
+                                    // no book in db
+                                    this.message = data.message;
+                                } else {
+                                    this.inventory = data.data.inventories;
+                                }
+                            })
+                            .catch(error => {
+                                // Errors when calling the service; such as network error, 
+                                // service offline, etc
+                                console.log(this.message + error);
+
+                            });
+                
                 }
+            },
+            created: function () {
+                // on Vue instance created, load the book list
+                this.getAllitem();
             }
         })
 

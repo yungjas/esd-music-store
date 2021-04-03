@@ -9,7 +9,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Karl - Fashion Ecommerce Template | Checkout</title>
+    <title> Music Ecommerce | Shop</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="img/core-img/favicon.ico">
@@ -139,30 +139,24 @@
                                             aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i
                                                     class="ti-menu"></i></span></button>
 
-                                        <div class="collapse navbar-collapse align-items-start collapse"
+                                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                            data-target="#karl-navbar" aria-controls="karl-navbar" aria-expanded="false"
+                                            aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i
+                                                    class="ti-menu"></i></span></button>
+
+                                            <div class="collapse navbar-collapse align-items-start collapse"
                                             id="karl-navbar">
                                             <ul class="navbar-nav animated" id="nav">
                                                 <li class="nav-item active"><a class="nav-link"
-                                                        href="index.html">Home</a></li>
-                                                <li class="nav-item dropdown">
-                                                    <a class="nav-link dropdown-toggle" href="#" id="karlDropdown"
-                                                        role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">Pages</a>
-                                                    <div class="dropdown-menu" aria-labelledby="karlDropdown">
-                                                        <a class="dropdown-item" href="index.html">Home</a>
-                                                        <a class="dropdown-item" href="shop.html">Shop</a>
-                                                        <a class="dropdown-item" href="product-details.html">Product
-                                                            Details</a>
-                                                        <a class="dropdown-item" href="cart.html">Cart</a>
-                                                        <a class="dropdown-item" href="checkout.html">Checkout</a>
-                                                    </div>
+                                                        href="index.html">Home</a>
                                                 </li>
-                                                <li class="nav-item"><a class="nav-link" href="#">Dresses</a></li>
-                                                <li class="nav-item"><a class="nav-link" href="#"><span
-                                                            class="karl-level">hot</span> Shoes</a></li>
-                                                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+
+                                                <li class="nav-item"><a class="nav-link" href="#"> Albums </a></li>
+                                                <li class="nav-item"><a class="nav-link" href="#"> Instruments </a></li>
+                                                <li class="nav-item"><a class="nav-link" href="cart.html"> Cart </a></li>
+                                                <li class="nav-item"><a class="nav-link" href="checkout.html"> Checkout </a></li>
+
                                             </ul>
-                                        </div>
                                     </nav>
                                 </div>
                             </div>
@@ -179,15 +173,15 @@
                     <h6><a href="#">BUY NOW</a></h6>
                 </div>
                 <!-- Single Discount Area -->
-                <div class="single-discount-area">
+                <!-- <div class="single-discount-area">
                     <h5>20% Discount for all dresses</h5>
                     <h6>USE CODE: Colorlib</h6>
                 </div>
-                <!-- Single Discount Area -->
+
                 <div class="single-discount-area">
                     <h5>20% Discount for students</h5>
                     <h6>USE CODE: Colorlib</h6>
-                </div>
+                </div> -->
             </section>
 
             <!-- ****** Checkout Area Start ****** -->
@@ -291,12 +285,14 @@
                                     <li><span>Product</span> <span>Total</span></li>
 
                                     <li v-for="(item, index) in cartobj">
-                                        <span> {{item.name}} x {{item.qty}} </span> <span>$ {{item.price * item.qty}}</span>
+                                        <span> {{item.item_name}}  x  {{item.qty}} </span>   <span style="float: right;">  $ {{item.item_price * item.qty}}  </span>
+
+
                                     </li>
 
-                                    <li><span>Subtotal</span> <span>${{displayprice}}</span></li>
+                                    <li><span>Subtotal</span> <span>  ${{displayprice}}  </span></li>
                                     <li><span>Shipping</span> <span>Free</span></li>
-                                    <li><span>Total</span> <span>${{displayprice}}</span></li>
+                                    <li><span>Total</span> <h5>${{displayprice}}</h5></li>
                                 </ul>
 
 
@@ -452,7 +448,7 @@
         </div>
     </div>
     <!-- /.wrapper end -->
-    
+
     <script type="application/javascript">
         var app = new Vue({
             el: "#app1",
@@ -461,7 +457,7 @@
                 shopitemcount: 0,
                 displayprice: 0,
                 test:0,
-                // i assume this is where the dataset of SQL will go 
+                // i assume this is where the dataset of SQL will go
                 // (`item_name`, `artist`, `item_id`, `item_price`, `item_quantity`, `item_category`, `item_status`)
                 datalist: [{ "name": "dress", "price": "11", "itemID": 0 },
                 { "name": "jeans", "price": "11", "itemID": 1 },
@@ -490,7 +486,7 @@
                     this.shopitemcount = localStorage.qty;
                 }
 
-            } 
+            }
         })
     </script>
 

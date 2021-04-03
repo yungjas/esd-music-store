@@ -9,7 +9,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Karl - Fashion Ecommerce Template | Cart</title>
+    <title> Music Ecommerce | Shop</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="img/core-img/favicon.ico">
@@ -132,17 +132,18 @@
                                             </a>
                                             <!-- Cart List Area Start -->
                                             <ul class="cart-list">
+
                                                 <li v-for="(item, index) in cartobj">
 
                                                     <a href="#" class="image"><img
-                                                            v-bind:src=" 'img/product-img/product-' + item.itemID + '.jpg'"
+                                                            v-bind:src=" 'img/product-img/product-' + item.item_id + '.jpg'"
                                                             class="cart-thumb" alt=""></a>
                                                     <div class="cart-item-desc">
                                                         <button @click="deletethis(index)" style="float:right;"
                                                             class="btn btn-outline-dark btn-sm"> delete </button>
-                                                        <h6><a href="#">{{item.name}}</a></h6>
+                                                        <h6><a href="#">{{item.item_name}}</a></h6>
 
-                                                        <p>{{item.qty}}x - <span class="price">${{item.price}}</span>
+                                                        <p>{{item.qty}}x - <span class="price">${{item.item_price}}</span>
                                                         </p>
 
                                                     </div>
@@ -183,28 +184,18 @@
                                             aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i
                                                     class="ti-menu"></i></span></button>
 
-                                        <div class="collapse navbar-collapse align-items-start collapse"
+                                            <div class="collapse navbar-collapse align-items-start collapse"
                                             id="karl-navbar">
                                             <ul class="navbar-nav animated" id="nav">
                                                 <li class="nav-item active"><a class="nav-link"
-                                                        href="index.html">Home</a></li>
-                                                <li class="nav-item dropdown">
-                                                    <a class="nav-link dropdown-toggle" href="#" id="karlDropdown"
-                                                        role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">Pages</a>
-                                                    <div class="dropdown-menu" aria-labelledby="karlDropdown">
-                                                        <a class="dropdown-item" href="index.html">Home</a>
-                                                        <a class="dropdown-item" href="shop.html">Shop</a>
-                                                        <a class="dropdown-item" href="product-details.html">Product
-                                                            Details</a>
-                                                        <a class="dropdown-item" href="cart.html">Cart</a>
-                                                        <a class="dropdown-item" href="checkout.html">Checkout</a>
-                                                    </div>
+                                                        href="index.html">Home</a>
                                                 </li>
-                                                <li class="nav-item"><a class="nav-link" href="#">Dresses</a></li>
-                                                <li class="nav-item"><a class="nav-link" href="#"><span
-                                                            class="karl-level">hot</span> Shoes</a></li>
-                                                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+
+                                                <li class="nav-item"><a class="nav-link" href="#"> Albums </a></li>
+                                                <li class="nav-item"><a class="nav-link" href="#"> Instruments </a></li>
+                                                <li class="nav-item"><a class="nav-link" href="cart.html"> Cart </a></li>
+                                                <li class="nav-item"><a class="nav-link" href="checkout.html"> Checkout </a></li>
+
                                             </ul>
                                         </div>
                                     </nav>
@@ -225,15 +216,15 @@
                     <h6><a href="#">BUY NOW</a></h6>
                 </div>
                 <!-- Single Discount Area -->
-                <div class="single-discount-area">
+                <!-- <div class="single-discount-area">
                     <h5>20% Discount for all dresses</h5>
                     <h6>USE CODE: Colorlib</h6>
                 </div>
-                <!-- Single Discount Area -->
+
                 <div class="single-discount-area">
                     <h5>20% Discount for students</h5>
                     <h6>USE CODE: Colorlib</h6>
-                </div>
+                </div> -->
             </section>
             <!-- ****** Top Discount Area End ****** -->
 
@@ -256,12 +247,12 @@
                                         <tr v-for="(item,index) in cartobj">
                                             <td class="cart_product_img d-flex align-items-center">
                                                 <a href="#"><img
-                                                        v-bind:src=" 'img/product-img/product-' + item.itemID + '.jpg'"
+                                                        v-bind:src=" 'img/product-img/product-' + item.item_id + '.jpg'"
                                                         alt="Product"></a>
 
-                                                <h6>{{item.name}}</h6>
+                                                <h6>{{item.item_name}}</h6>
                                             </td>
-                                            <td class="price"><span> ${{item.price}} </span></td>
+                                            <td class="price"><span> ${{item.item_price}} </span></td>
                                             <td class="qty">
                                                 <div class="quantity">
                                                     <span class="qty-minus" @click="item.qty--"
@@ -278,7 +269,7 @@
                                                             class="fa fa-plus" aria-hidden="true"></i></span>
                                                 </div>
                                             </td>
-                                            <td class="total_price"><span>${{item.price * item.qty}}</span></td>
+                                            <td class="total_price"><span>${{item.item_price * item.qty}}</span></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -286,7 +277,7 @@
 
                             <div class="cart-footer d-flex mt-30">
                                 <div class="back-to-shop w-50">
-                                    <a href="shop.html">Continue shooping</a>
+                                    <a href="index.html">Continue shooping</a>
                                 </div>
                                 <div class="update-checkout w-50 text-right">
                                     <a @click="clearcart()" href="#">clear cart</a>
@@ -492,7 +483,7 @@
                         this.shopitemcount = 0;
                         for (inneritemID in this.cartobj) {
                             this.shopitemcount += Number(this.cartobj[inneritemID].qty)
-                            todisplayprice += this.cartobj[inneritemID].price * this.cartobj[inneritemID].qty
+                            todisplayprice += this.cartobj[inneritemID].item_price * this.cartobj[inneritemID].qty
                         }
 
                         this.displayprice = todisplayprice.toFixed(2);
@@ -512,6 +503,16 @@
                         }
                     }
                     return false
+                }, deletethis: function (itemID) {
+                    delete this.cartobj[itemID];
+
+                    todisplayprice = 0;
+                    this.shopitemcount = 0;
+                    for (inneritemID in this.cartobj) {
+                        this.shopitemcount += Number(this.cartobj[inneritemID].qty)
+                        todisplayprice += this.cartobj[inneritemID].price * this.cartobj[inneritemID].qty
+                    }
+                    this.displayprice = todisplayprice.toFixed(2);
                 }
 
             }

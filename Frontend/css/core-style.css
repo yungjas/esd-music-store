@@ -49,6 +49,7 @@
     padding: 0;
 }
 
+
 body {
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
@@ -742,9 +743,9 @@ img {
 
 .top-discount-area .single-discount-area {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 33.333%;
-    flex: 0 0 33.3333%;
-    max-width: 33.333%;
+    -ms-flex: 0 0 33.3%;
+    flex: 0 0 100%;
+    max-width: 100%;
     padding: 40px 15px;
     background-color: #b8b8b8;
     text-align: center;
@@ -757,7 +758,7 @@ img {
 }
 
 .top-discount-area .single-discount-area:last-child {
-    background-color: #3a3a3a;
+    background-color: #4d4d4d;
 }
 
 .top-discount-area .single-discount-area h5 {
@@ -2117,4 +2118,12 @@ img {
     font-size: 12px;
     line-height: 2;
     color: #9f9f9f;
+}
+
+.artist{
+    font-size: 10px;
+}
+
+.album{
+    font-size: 20px;
 }
