@@ -8,15 +8,16 @@ from invokes import invoke_http
 
 import amqp_setup
 import pika
-import amqp_receiver
+
+from os import environ
 
 app = Flask(__name__)
 CORS(app)
 
-order_url = "http://localhost:7001/order"
-inventory_url = "http://localhost:7000/inventory"
-payment_url = "http://localhost:7002/payment"
-error_url = "http://localhost:7003/error"
+order_url = environ.get('order_URL') or "http://localhost:7001/order"
+inventory_url = environ.get('inventory_URL') or "http://localhost:7000/inventory"
+payment_url = environ.get('payment_URL') or "http://localhost:7002/payment"
+error_url = environ.get('error_URL') or "http://localhost:7003/error"
 
 @app.route("/place_order", methods=['POST'])
 def place_order():
