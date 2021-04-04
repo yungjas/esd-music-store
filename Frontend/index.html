@@ -34,77 +34,6 @@
 
 <body>
 
-    <div class="catagories-side-menu">
-        <!-- Close Icon -->
-        <div id="sideMenuClose">
-            <i class="ti-close"></i>
-        </div>
-        <!--  Side Nav  -->
-        <div class="nav-side-menu">
-            <div class="menu-list">
-
-                <h6> Genre </h6>
-                <ul id="menu-content" class="menu-content collapse out">
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#women" class="collapsed active">
-                        <a href="#">Woman wear <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="women">
-                            <li><a href="#">Midi Dresses</a></li>
-                            <li><a href="#">Maxi Dresses</a></li>
-                            <li><a href="#">Prom Dresses</a></li>
-                            <li><a href="#">Little Black Dresses</a></li>
-                            <li><a href="#">Mini Dresses</a></li>
-                        </ul>
-                    </li>
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#man" class="collapsed">
-                        <a href="#">Man Wear <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="man">
-                            <li><a href="#">Man Dresses</a></li>
-                            <li><a href="#">Man Black Dresses</a></li>
-                            <li><a href="#">Man Mini Dresses</a></li>
-                        </ul>
-                    </li>
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#kids" class="collapsed">
-                        <a href="#">Children <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="kids">
-                            <li><a href="#">Children Dresses</a></li>
-                            <li><a href="#">Mini Dresses</a></li>
-                        </ul>
-                    </li>
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#bags" class="collapsed">
-                        <a href="#">Bags &amp; Purses <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="bags">
-                            <li><a href="#">Bags</a></li>
-                            <li><a href="#">Purses</a></li>
-                        </ul>
-                    </li>
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#eyewear" class="collapsed">
-                        <a href="#">Eyewear <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="eyewear">
-                            <li><a href="#">Eyewear Style 1</a></li>
-                            <li><a href="#">Eyewear Style 2</a></li>
-                            <li><a href="#">Eyewear Style 3</a></li>
-                        </ul>
-                    </li>
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#footwear" class="collapsed">
-                        <a href="#">Footwear <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="footwear">
-                            <li><a href="#">Footwear 1</a></li>
-                            <li><a href="#">Footwear 2</a></li>
-                            <li><a href="#">Footwear 3</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-
     <div id="wrapper">
         <div id="app1">
 
@@ -171,9 +100,9 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="header-right-side-menu ml-15">
+                                        <!-- <div class="header-right-side-menu ml-15">
                                             <a href="#" id="sideMenuBtn"><i class="ti-menu" aria-hidden="true"></i></a>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -202,10 +131,10 @@
                 <br>
                 <div style="padding-left: 27%; padding-right: 27%; padding-top: 20px;">
                     <div class="input-group mb-3">
-                        <input v-on:keyup.enter="getSearchitem()" v-model="searchname" type="text" class="form-control" placeholder="Item Name"
-                            aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <input v-on:keyup.enter="getSearchitem()" v-model="searchname" type="text" class="form-control"
+                            placeholder="Item Name" aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button @click= "getSearchitem()" class="btn btn-outline-grey" type="button">Search </button>
+                            <button @click="getSearchitem()" class="btn btn-outline-grey" type="button">Search </button>
                         </div>
                     </div>
                 </div>
@@ -301,6 +230,9 @@
                 </div>
                 <!-- ****** Quick View Modal Area End ****** -->
 
+
+
+
                 <section class="shop_grid_area section_padding_100">
                     <div class="container">
                         <div class="row">
@@ -310,17 +242,19 @@
                                     <div class="widget catagory mb-50">
                                         <!--  Side Nav  -->
                                         <div class="nav-side-menu">
-                                            <h6 class="mb-0">Product category</h6>
+                                            <h6 class="mb-0">Filter by category</h6>
                                             <div class="menu-list">
                                                 <ul id="menu-content2" class="menu-content collapse out">
                                                     <!-- Single Item -->
 
                                                     <!-- Single Item -->
                                                     <li data-toggle="collapse" data-target="#man2" class="collapsed">
-                                                        <a href="#">Music</a>
+                                                        <a href="#"> Categories </a>
                                                         <ul class="sub-menu collapse" id="man2">
-                                                            <li v-for="genre in uniquegenre"> <input class="a-copy"
-                                                                    type="checkbox" v-bind:id="genre">
+                                                            <li v-for="genre in uniquegenre">
+                                                                <input class="a-copy" v-bind:value="genre"
+                                                                    v-model="filteritem" type="checkbox"
+                                                                    v-bind:id="genre">
                                                                 <label v-bind:for="genre"
                                                                     class="a-label">{{genre}}</label>
                                                             </li>
@@ -328,17 +262,20 @@
                                                     </li>
 
                                                     <!-- Single Item -->
-                                                    <li data-toggle="collapse" data-target="#kids2" class="collapsed">
+                                                    <!-- <li data-toggle="collapse" data-target="#kids2" class="collapsed">
                                                         <a href="#">Instruments</a>
                                                         <ul class="sub-menu collapse" id="kids2">
                                                             <li v-for="instrument in uniqueinstrument"> <input
                                                                     class="a-copy" type="checkbox"
+                                                                    v-bind:value="instrument" v-model="filteritem"
                                                                     v-bind:id="instrument">
                                                                 <label v-bind:for="instrument"
                                                                     class="a-label">{{instrument}}</label>
                                                             </li>
                                                         </ul>
-                                                    </li>
+                                                    </li> -->
+                                                    <br>
+                                                    <button @click="filter()" type="button" class="btn btn-secondary"> Filter </button>
                                                 </ul>
                                             </div>
                                         </div>
@@ -553,8 +490,12 @@
                 cartobj: {},
                 uniquecategory: [],
                 uniquegenre: [],
-                uniqueinstrument: [],
-                searchname: ""
+                // uniqueinstrument: [],
+                searchname: "",
+                item_category: [],
+                filteritem: [],
+                sortedbycategoryinventory: {},
+                temp: []
 
             },
             mounted() {
@@ -576,6 +517,18 @@
             },
             methods: {
                 // frontend functions
+                filter: function () {
+
+                    //click filter select thing loop through inventory and pick out those
+                    for (filtercategory of this.filteritem) {
+                        for (item of this.sortedbycategoryinventory[filtercategory]) {
+                            this.temp.push(item)
+                        }
+                    }
+                    this.inventory = this.temp
+                    this.temp = []
+
+                },
                 clearcart: function () {
                     this.cartobj = {};
                     this.shopitemcount = 0;
@@ -643,20 +596,36 @@
                                     this.message = data.message;
                                 } else {
                                     this.inventory = data.data.inventories;
+                                    this.fullinventory = data.data.inventories;
                                     // create unique category list
                                     for (item of data.data.inventories) {
-                                        if (!(this.uniquegenre.includes(item.item_category)) && item.item_category != "Instrument") {
+                                        if (!(this.uniquegenre.includes(item.item_category))) {
                                             this.uniquegenre.push(item.item_category)
-                                        } else if (item.item_category == "Instrument") {
-                                            var instrumentnamearray = item.item_name.split(" ")
-                                            var instrumentname = instrumentnamearray[instrumentnamearray.length - 1]
+                                        } 
 
-                                            if (!(this.uniqueinstrument.includes(instrumentname))) {
-                                                this.uniqueinstrument.push(instrumentname)
-                                            }
+                                    }
+                                    // for (item of data.data.inventories) {
+                                    //     if (!(this.uniquegenre.includes(item.item_category)) && item.item_category != "Instrument") {
+                                    //         this.uniquegenre.push(item.item_category)
+                                    //     } else if (item.item_category == "Instrument") {
+                                    //         var instrumentnamearray = item.item_name.split(" ")
+                                    //         var instrumentname = instrumentnamearray[instrumentnamearray.length - 1]
 
+                                    //         if (!(this.uniqueinstrument.includes(instrumentname))) {
+                                    //             this.uniqueinstrument.push(instrumentname)
+                                    //         }
+
+                                    //     }
+
+                                    // }
+                                    // create sorted by cat list 
+                                    for (item of data.data.inventories) {
+                                        if (!(item.item_category in this.sortedbycategoryinventory)) {
+                                            this.sortedbycategoryinventory[item.item_category] = []
+                                            this.sortedbycategoryinventory[item.item_category].push(item)
+                                        } else {
+                                            this.sortedbycategoryinventory[item.item_category].push(item)
                                         }
-
                                     }
                                 }
                             })
@@ -667,9 +636,9 @@
 
                             });
 
-                }, getSearchitem : function () {
+                }, getSearchitem: function () {
                     console.log(this.searchname)
-                    const response = 
+                    const response =
                         fetch(`${search_URL}/${this.searchname}`)
                             .then(response => response.json())
                             .then(data => {
@@ -677,8 +646,10 @@
                                     // no item in db
                                     this.message = data.message;
                                     this.inventory = [];
+
                                 } else {
                                     this.inventory = [data.data];
+
                                 }
                             })
                             .catch(error => {
@@ -687,7 +658,7 @@
                                 console.log(this.message + error);
 
                             });
-                },                
+                },
 
             },
             created: function () {
