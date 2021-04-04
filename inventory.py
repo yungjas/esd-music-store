@@ -72,6 +72,33 @@ def find_by_item_id(item_id):
         }
     ), 404
 
+@app.route("/inventory/search/<string:item_name>")
+def find_by_item_name(item_name):
+    # convert to lowercase and remove spaces in between if any
+    user_item_name = item_name.lower().replace(" ", "")
+    inventory_list = Inventory.query.all()
+    for each_item in inventory_list:
+        each_item_json = each_item.json()
+        item_name_lower = each_item_json["item_name"].lower().replace(" ", "")
+        if user_item_name == item_name_lower:
+            print("Match found for: " + user_item_name)
+            print("User input: " + user_item_name)
+            print("Matching item: " + item_name_lower)
+
+            return jsonify(
+                {
+                    "code": 200,
+                    "data": each_item_json
+                }
+            )
+    
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Item not found."
+        }
+    ), 404
+
 @app.route("/inventory/<string:item_id>", methods=['POST'])
 def create_item(item_id):
     if (Inventory.query.filter_by(item_id=item_id).first()):

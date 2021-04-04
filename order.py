@@ -17,10 +17,8 @@ db = SQLAlchemy(app)
 class Order(db.Model):
     __tablename__ = 'order'
     order_id = db.Column(db.Integer, primary_key=True)
-    customer_id = db.Column(db.Integer, nullable=False)
     customer_name = db.Column(db.String(100), nullable=False)
     customer_address = db.Column(db.String(100), nullable=False)
-    telegram_id = db.Column(db.String(32), nullable=True)
     customer_contact = db.Column(db.String(10), nullable=False)
     
     # timestamp
@@ -31,10 +29,8 @@ class Order(db.Model):
     def json(self):
         dto = {
             'order_id': self.order_id,
-            'customer_id': self.customer_id,
             'customer_name': self.customer_name,
             'customer_address': self.customer_address,
-            'telegram_id': self.telegram_id,
             'customer_contact': self.customer_contact,
             'created': self.created,
             'modified': self.modified
@@ -108,12 +104,10 @@ def find_by_order_id(order_id):
 
 @app.route("/order", methods=['POST'])
 def create_order():
-    customer_id = request.json.get('customer_id', None)
     customer_name = request.json.get('customer_name', None)
     customer_address = request.json.get('customer_address', None)
     customer_contact = request.json.get('customer_contact', None)
-    telegram_id = request.json.get('telegram_id', None)
-    order = Order(customer_id=customer_id, customer_name=customer_name, customer_address=customer_address, customer_contact=customer_contact, telegram_id=telegram_id)
+    order = Order(customer_name=customer_name, customer_address=customer_address, customer_contact=customer_contact)
     print(order)
 
     cart_item = request.json.get('cart_item')

@@ -33,11 +33,9 @@ USE `order_music`;
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE IF NOT EXISTS `order` (
   `order_id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` varchar(32) NOT NULL,
   `customer_name` varchar(64) NOT NULL,
   `customer_address` varchar(100) NOT NULL,
   `customer_contact` int(11) NOT NULL,
-  `telegram_id` varchar(64) NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`order_id`)
@@ -47,8 +45,8 @@ CREATE TABLE IF NOT EXISTS `order` (
 -- Dumping data for table `order`
 --
 
-INSERT INTO `order` (`order_id`, `customer_id`, `customer_name`, `customer_address`, `customer_contact`, `telegram_id`, `created`, `modified`) VALUES
-(1, '623', 'Jasmine', 'Block 111', '99999999', 'yungjxs', '2020-06-12 02:14:55', '2020-06-12 02:14:55');
+INSERT INTO `order` (`order_id`, `customer_name`, `customer_address`, `customer_contact`, `created`, `modified`) VALUES
+(1, 'Jasmine', 'Block 111', '99999999', '2020-06-12 02:14:55', '2020-06-12 02:14:55');
 
 -- --------------------------------------------------------
 
