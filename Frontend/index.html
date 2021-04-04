@@ -214,7 +214,7 @@
                                         <div class="row">
                                             <div class="col-12 col-lg-5">
                                                 <div class="quickview_pro_img">
-                                                    <img src="img/product-img/product-1.jpg" alt="">
+                                                    <img src="img/product-img/product-190758883625.jpg" alt="">
                                                 </div>
                                             </div>
                                             <div class="col-12 col-lg-7">
@@ -396,7 +396,12 @@
                                                 <p class="artist">{{inventoryitem.artist}}</p>
                                                 <!-- Add to Cart -->
                                                 <!-- asd -->
-                                                <a @click="addcartcount(inventoryitem.item_id)" href="#" class="add-to-cart-btn">ADD TO
+                                                <div  v-if="inventoryitem.item_status == 'Out of Stock'">
+                                                    <br>
+                                                    <p style="color: red;"> Out of stock </p>
+                                                </div>
+                                                 
+                                                <a v-if="inventoryitem.item_status != 'Out of Stock'" @click="addcartcount(inventoryitem.item_id)" href="#" class="add-to-cart-btn">ADD TO
                                                     CART</a>
                                             </div>
                                         </div>
@@ -516,15 +521,7 @@
                 // i assume this is where the dataset of SQL will go 
                 // (`item_name`, `artist`, `item_id`, `item_price`, `item_quantity`, `item_category`, `item_status`)
                 // {"artist":"Travis Scott","item_category":"Rap & HipHop","item_id":"190758883625","item_name":"ASTROWORLD","item_price":8.99,"item_quantity":0,"item_status":"Out of Stock"}
-                datalist: [{ "name": "dress", "price": "11", "itemID": 0 },
-                { "name": "jeans", "price": "11", "itemID": 1 },
-                { "name": "shorts1", "price": "12", "itemID": 2 },
-                { "name": "shorts2", "price": "13", "itemID": 3 },
-                { "name": "shorts3", "price": "14", "itemID": 4 },
-                { "name": "shorts4", "price": "15", "itemID": 5 },
-                { "name": "shorts5", "price": "16", "itemID": 6 },
 
-                ],
 
                 "inventory": [],
                 // this is the list that will go to the cart
