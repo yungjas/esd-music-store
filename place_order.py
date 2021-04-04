@@ -8,6 +8,7 @@ from invokes import invoke_http
 
 import amqp_setup
 import pika
+import json
 
 from os import environ
 
@@ -61,12 +62,15 @@ def processPlaceOrder(order):
             "error_desc": error_desc
         }
 
+        error_order_msg = json.dumps(error_order)
+
         print('\n\n-----Invoking error microservice as order fails-----')
         
         # if possible consume messages from amqp and save to database
         print('\n\n-----Publishing the (order error) message with routing_key=order.error-----')
+        print(error_order_msg)
         amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="order.error", 
-            body=error_desc, properties=pika.BasicProperties(delivery_mode = 2))
+            body=error_order_msg, properties=pika.BasicProperties(delivery_mode = 2))
 
         #amqp_receiver.consume_message()
         # consume messages from queue
@@ -74,7 +78,7 @@ def processPlaceOrder(order):
         # amqp_setup.channel.start_consuming()
         # amqp_setup.channel.stop_consuming()
 
-        invoke_http(error_url, method="POST", json=error_order)
+        #invoke_http(error_url, method="POST", json=error_order)
         
         #print("Order status ({:d}) sent to the error microservice:".format(code), order_result)
 
@@ -108,22 +112,24 @@ def processPlaceOrder(order):
                     "error_desc": error_desc_insufficient
                 }
 
+                error_insufficient_stock_msg = json.dumps(error_insufficient_stock)
+
                 # if possible consume messages from amqp and save to database
                 print('\n\n-----Publishing the (inventory error) message with routing_key=inventory.error-----')
                 amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="inventory.error", 
-                    body=error_desc_insufficient, properties=pika.BasicProperties(delivery_mode = 2))
+                    body=error_insufficient_stock_msg, properties=pika.BasicProperties(delivery_mode = 2))
                 
                 print('\n\n-----Invoking error microservice as there is insufficient stock-----')
-                invoke_http(error_url, method="POST", json=error_insufficient_stock)
+                #invoke_http(error_url, method="POST", json=error_insufficient_stock)
 
             # when order quantity is more than item quantity
             elif each_order_item["quantity"] > item_info["data"]["item_quantity"]:
                 print('\n\n-----Publishing the (inventory error) message with routing_key=inventory.error-----')
                 amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="inventory.error", 
-                    body=error_desc_insufficient, properties=pika.BasicProperties(delivery_mode = 2))
+                    body=error_insufficient_stock_msg, properties=pika.BasicProperties(delivery_mode = 2))
                 
                 print('\n\n-----Invoking error microservice as order quantity is more than item quantity-----')
-                invoke_http(error_url, method="POST", json=error_insufficient_stock)
+                #invoke_http(error_url, method="POST", json=error_insufficient_stock)
 
             # don't add to total amount if an item has insufficient stock
             else:
@@ -145,12 +151,14 @@ def processPlaceOrder(order):
                 "error_desc": error_desc_payment
             }
 
+            error_payment_msg = json.dumps(error_payment)
+
             print('\n\n-----Publishing the (payment error) message with routing_key=payment.error-----')
             amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="payment.error", 
-                body=error_desc_payment, properties=pika.BasicProperties(delivery_mode = 2))
+                body=error_payment_msg, properties=pika.BasicProperties(delivery_mode = 2))
             
             print('\n\n-----Invoking error microservice as payment fails-----')
-            invoke_http(error_url, method="POST", json=error_payment)
+            #invoke_http(error_url, method="POST", json=error_payment)
             print("Payment status ({:d}) sent to the error microservice:".format(code), payment_result)
         
         # after successful payment, update item quantity in inventory
