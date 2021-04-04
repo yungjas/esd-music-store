@@ -134,7 +134,7 @@
                         <input v-on:keyup.enter="getSearchitem()" v-model="searchname" type="text" class="form-control"
                             placeholder="Item Name" aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button @click="getSearchitem()" class="btn btn-outline-grey" type="button">Search </button>
+                            <button @click="getSearchitem()" style="z-index: -1;"   class="btn btn-outline-grey" type="button">Search </button>
                         </div>
                     </div>
                 </div>
@@ -251,6 +251,14 @@
                                                     <li data-toggle="collapse" data-target="#man2" class="collapsed">
                                                         <a href="#"> Categories </a>
                                                         <ul class="sub-menu collapse" id="man2">
+                                                            <li >
+                                                                <input class="a-copy" value="all"
+                                                                    v-model="filteritem" type="checkbox"
+                                                                    id="all">
+                                                                <label for="all"
+                                                                    class="a-label"> Select all </label>
+                                                            </li>
+
                                                             <li v-for="genre in uniquegenre">
                                                                 <input class="a-copy" v-bind:value="genre"
                                                                     v-model="filteritem" type="checkbox"
@@ -495,7 +503,8 @@
                 item_category: [],
                 filteritem: [],
                 sortedbycategoryinventory: {},
-                temp: []
+                temp: [],
+                fullinventory: []
 
             },
             mounted() {
@@ -520,13 +529,17 @@
                 filter: function () {
 
                     //click filter select thing loop through inventory and pick out those
-                    for (filtercategory of this.filteritem) {
+                    if (this.filteritem.includes('all')){
+                        this.inventory = this.fullinventory
+                    } else {
+                        for (filtercategory of this.filteritem) {
                         for (item of this.sortedbycategoryinventory[filtercategory]) {
                             this.temp.push(item)
                         }
                     }
                     this.inventory = this.temp
                     this.temp = []
+                    }
 
                 },
                 clearcart: function () {
