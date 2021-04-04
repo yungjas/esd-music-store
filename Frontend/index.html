@@ -202,7 +202,7 @@
                 <br>
                 <div style="padding-left: 27%; padding-right: 27%; padding-top: 20px;">
                     <div class="input-group mb-3">
-                        <input v-model="searchname" type="text" class="form-control" placeholder="Item Name"
+                        <input v-on:keyup.enter="getSearchitem()" v-model="searchname" type="text" class="form-control" placeholder="Item Name"
                             aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                             <button @click= "getSearchitem()" class="btn btn-outline-grey" type="button">Search </button>
