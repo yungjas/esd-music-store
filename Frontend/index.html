@@ -151,7 +151,8 @@
                                                             class="btn btn-outline-dark btn-sm"> delete </button>
                                                         <h6><a href="#">{{item.item_name}}</a></h6>
 
-                                                        <p>{{item.qty}}x - <span class="price">${{item.item_price}}</span>
+                                                        <p>{{item.qty}}x - <span
+                                                                class="price">${{item.item_price}}</span>
                                                         </p>
 
                                                     </div>
@@ -197,6 +198,18 @@
 
 
                 </section>
+                <br>
+                <div style="padding-left: 27%; padding-right: 27%; padding-top: 20px;">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Item Name"
+                            aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-grey" type="button">Search </button>
+                        </div>
+                    </div>
+                </div>
+
+
 
                 <!-- ****** Quick View Modal Area Start ****** -->
                 <div class="modal fade" id="quickview" tabindex="-1" role="dialog" aria-labelledby="quickview"
@@ -305,8 +318,11 @@
                                                     <li data-toggle="collapse" data-target="#man2" class="collapsed">
                                                         <a href="#">Music</a>
                                                         <ul class="sub-menu collapse" id="man2">
-                                                            <li v-for="genre in uniquegenre"> <input class="a-copy" type="checkbox" v-bind:id="genre">
-                                                                 <label  v-bind:for="genre"class="a-label" >{{genre}}</label> </li>
+                                                            <li v-for="genre in uniquegenre"> <input class="a-copy"
+                                                                    type="checkbox" v-bind:id="genre">
+                                                                <label v-bind:for="genre"
+                                                                    class="a-label">{{genre}}</label>
+                                                            </li>
                                                         </ul>
                                                     </li>
 
@@ -314,9 +330,13 @@
                                                     <li data-toggle="collapse" data-target="#kids2" class="collapsed">
                                                         <a href="#">Instruments</a>
                                                         <ul class="sub-menu collapse" id="kids2">
-                                                            <li v-for="instrument in uniqueinstrument"> <input class="a-copy" type="checkbox" v-bind:id="instrument">
-                                                                <label  v-bind:for="instrument"class="a-label" >{{instrument}}</label> </li>
-                                                       </ul>
+                                                            <li v-for="instrument in uniqueinstrument"> <input
+                                                                    class="a-copy" type="checkbox"
+                                                                    v-bind:id="instrument">
+                                                                <label v-bind:for="instrument"
+                                                                    class="a-label">{{instrument}}</label>
+                                                            </li>
+                                                        </ul>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -378,11 +398,12 @@
 
                                         <!-- Single gallery Item -->
 
-                                        <div class="col-12 col-sm-6 col-lg-4 single_gallery_item wow fadeInUpBig" v-for="inventoryitem in inventory"
-                                            data-wow-delay="0.2s">
+                                        <div class="col-12 col-sm-6 col-lg-4 single_gallery_item wow fadeInUpBig"
+                                            v-for="inventoryitem in inventory" data-wow-delay="0.2s">
                                             <!-- Product Image -->
                                             <div class="product-img">
-                                                <img alt="" v-bind:src="'img/product-img/product-' + inventoryitem.item_id + '.jpg'">
+                                                <img alt=""
+                                                    v-bind:src="'img/product-img/product-' + inventoryitem.item_id + '.jpg'">
                                                 <div class="product-quicview">
 
                                                     <a @click="quickview(0)" href="#" data-toggle="modal"
@@ -396,12 +417,14 @@
                                                 <p class="artist">{{inventoryitem.artist}}</p>
                                                 <!-- Add to Cart -->
                                                 <!-- asd -->
-                                                <div  v-if="inventoryitem.item_status == 'Out of Stock'">
+                                                <div v-if="inventoryitem.item_status == 'Out of Stock'">
                                                     <br>
                                                     <p style="color: red;"> Out of stock </p>
                                                 </div>
-                                                 
-                                                <a v-if="inventoryitem.item_status != 'Out of Stock'" @click="addcartcount(inventoryitem.item_id)" href="#" class="add-to-cart-btn">ADD TO
+
+                                                <a v-if="inventoryitem.item_status != 'Out of Stock'"
+                                                    @click="addcartcount(inventoryitem.item_id)" href="#"
+                                                    class="add-to-cart-btn">ADD TO
                                                     CART</a>
                                             </div>
                                         </div>
@@ -425,7 +448,7 @@
                     </div>
                 </section>
             </div>
-        <!-- vue end -->
+            <!-- vue end -->
         </div>
 
         <!-- ****** Footer Area Start ****** -->
@@ -439,7 +462,7 @@
                                 <img src="img/core-img/logo.png" alt="">
                             </div>
                             <div class="copywrite_text d-flex align-items-center">
- 
+
                             </div>
                         </div>
                     </div>
@@ -618,20 +641,20 @@
                                 } else {
                                     this.inventory = data.data.inventories;
                                     // create unique category list
-                                    for (item of data.data.inventories){
-                                        if (!(this.uniquegenre.includes(item.item_category)) && item.item_category != "Instrument"){
+                                    for (item of data.data.inventories) {
+                                        if (!(this.uniquegenre.includes(item.item_category)) && item.item_category != "Instrument") {
                                             this.uniquegenre.push(item.item_category)
-                                        } else if (item.item_category == "Instrument"){                                            
-                                            var instrumentnamearray = item.item_name.split(" ")                                           
-                                            var instrumentname = instrumentnamearray[instrumentnamearray.length -1]
-                                          
-                                            if (!(this.uniqueinstrument.includes(instrumentname))){
+                                        } else if (item.item_category == "Instrument") {
+                                            var instrumentnamearray = item.item_name.split(" ")
+                                            var instrumentname = instrumentnamearray[instrumentnamearray.length - 1]
+
+                                            if (!(this.uniqueinstrument.includes(instrumentname))) {
                                                 this.uniqueinstrument.push(instrumentname)
                                             }
-                                                
+
                                         }
-                                       
-                                    } 
+
+                                    }
                                 }
                             })
                             .catch(error => {
