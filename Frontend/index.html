@@ -198,13 +198,14 @@
 
 
                 </section>
+
                 <br>
                 <div style="padding-left: 27%; padding-right: 27%; padding-top: 20px;">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Item Name"
+                        <input v-model="searchname" type="text" class="form-control" placeholder="Item Name"
                             aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button class="btn btn-outline-grey" type="button">Search </button>
+                            <button @click= "getSearchitem()" class="btn btn-outline-grey" type="button">Search </button>
                         </div>
                     </div>
                 </div>
@@ -534,6 +535,7 @@
     <!-- vue -->
     <script type="application/javascript">
         var get_all_URL = "http://localhost:7000/inventory";
+        var search_URL = "http://localhost:7000/inventory/search"
         var app = new Vue({
             el: "#app1",
             data: {
@@ -552,6 +554,7 @@
                 uniquecategory: [],
                 uniquegenre: [],
                 uniqueinstrument: [],
+                searchname: ""
 
             },
             mounted() {
@@ -664,7 +667,28 @@
 
                             });
 
-                }
+                }, getSearchitem : function () {
+                    console.log(this.searchname)
+                    const response = 
+                        fetch(`${search_URL}/${this.searchname}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.code === 404) {
+                                    // no item in db
+                                    this.message = data.message;
+                                    this.inventory = [];
+                                } else {
+                                    this.inventory = [data.data];
+                                }
+                            })
+                            .catch(error => {
+                                // Errors when calling the service; such as network error, 
+                                // service offline, etc
+                                console.log(this.message + error);
+
+                            });
+                },                
+
             },
             created: function () {
                 // on Vue instance created, load the book list
