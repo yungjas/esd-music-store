@@ -107,13 +107,14 @@
 
     <div id="wrapper">
         <div id="app1">
+
             <!-- {{inventory}}
             <br>
             {{cartobj}} -->
             <!-- {{cartobj}} -->
             <!-- ****** Header Area Start ****** -->
             <header class="header_area bg-img background-overlay-white"
-                style="background-image: url(img/bg-img/bg-1.jpg);">
+                style="background-image: url(img/bg-img/bg-new.jpg);">
                 <!-- Top Header Area Start -->
                 <div class="top_header_area">
                     <div class="container h-100">
@@ -181,61 +182,8 @@
                 </div>
 
                 <!-- Top Header Area End -->
-                <div class="main_header_area">
-                    <div class="container h-100">
-                        <div class="row h-100">
-                            <div class="col-12 d-md-flex justify-content-between">
-                                <!-- Header Social Area -->
-                                <div class="header-social-area">
-                                    <a href="#"><span class="karl-level">Share</span> <i class="fa fa-pinterest"
-                                            aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                                </div>
-                                <!-- Menu Area -->
-                                <div class="main-menu-area">
-                                    <nav class="navbar navbar-expand-lg align-items-start">
+                <div style="height: 20px;">
 
-                                        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                            data-target="#karl-navbar" aria-controls="karl-navbar" aria-expanded="false"
-                                            aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i
-                                                    class="ti-menu"></i></span></button>
-
-                                        <div class="collapse navbar-collapse align-items-start collapse"
-                                            id="karl-navbar">
-                                            <ul class="navbar-nav animated" id="nav">
-                                                <li class="nav-item active"><a class="nav-link"
-                                                        href="index.html">Home</a>
-                                                </li>
-                                                <!-- <li class="nav-item dropdown">
-                                                    <a class="nav-link dropdown-toggle" href="#" id="karlDropdown"
-                                                        role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">Pages</a>
-                                                        
-                                                    <div class="dropdown-menu" aria-labelledby="karlDropdown">
-                                                        <a class="dropdown-item" href="index.html">Home</a>
-                                                        <a class="dropdown-item" href="product-details.html">Product
-                                                            Details</a>
-                                                        <a class="dropdown-item" href="cart.html">Cart</a>
-                                                        <a class="dropdown-item" href="checkout.html">Checkout</a>
-                                                    </div>
-                                                </li> -->
-                                                
-                                                <li class="nav-item"><a class="nav-link" href="#"> Albums </a></li>
-                                                <li class="nav-item"><a class="nav-link" href="#"> Instruments </a></li>
-                                                <li class="nav-item"><a class="nav-link" href="cart.html"> Cart </a></li>
-                                                <li class="nav-item"><a class="nav-link" href="checkout.html"> Checkout </a></li>
-                                                <!-- <li class="nav-item"><a class="nav-link" href="#">Contact us </a></li> -->
-                                            </ul>
-                                        </div>
-                                    </nav>
-                                </div>
-                                <!-- Help Line -->
-
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </header>
             <!-- ****** Header Area End ****** -->
@@ -357,9 +305,8 @@
                                                     <li data-toggle="collapse" data-target="#man2" class="collapsed">
                                                         <a href="#">Music</a>
                                                         <ul class="sub-menu collapse" id="man2">
-                                                            <li><a href="#">Man Dresses</a></li>
-                                                            <li><a href="#">Man Black Dresses</a></li>
-                                                            <li><a href="#">Man Mini Dresses</a></li>
+                                                            <li v-for="genre in uniquegenre"> <input class="a-copy" type="checkbox" v-bind:id="genre">
+                                                                 <label  v-bind:for="genre"class="a-label" >{{genre}}</label> </li>
                                                         </ul>
                                                     </li>
 
@@ -367,9 +314,9 @@
                                                     <li data-toggle="collapse" data-target="#kids2" class="collapsed">
                                                         <a href="#">Instruments</a>
                                                         <ul class="sub-menu collapse" id="kids2">
-                                                            <li><a href="#">Children Dresses</a></li>
-                                                            <li><a href="#">Mini Dresses</a></li>
-                                                        </ul>
+                                                            <li v-for="instrument in uniqueinstrument"> <input class="a-copy" type="checkbox" v-bind:id="instrument">
+                                                                <label  v-bind:for="instrument"class="a-label" >{{instrument}}</label> </li>
+                                                       </ul>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -422,42 +369,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="widget recommended">
-                                        <h6 class="widget-title mb-30">Recommended</h6>
-
-                                        <div class="widget-desc">
-                                            <!-- Single Recommended Product -->
-                                            <div class="single-recommended-product d-flex mb-30">
-                                                <div class="single-recommended-thumb mr-3">
-                                                    <img src="img/product-img/product-10.jpg" alt="">
-                                                </div>
-                                                <div class="single-recommended-desc">
-                                                    <h6>Men’s T-shirt</h6>
-                                                    <p>$ 39.99</p>
-                                                </div>
-                                            </div>
-                                            <!-- Single Recommended Product -->
-                                            <div class="single-recommended-product d-flex mb-30">
-                                                <div class="single-recommended-thumb mr-3">
-                                                    <img src="img/product-img/product-11.jpg" alt="">
-                                                </div>
-                                                <div class="single-recommended-desc">
-                                                    <h6>Blue mini top</h6>
-                                                    <p>$ 19.99</p>
-                                                </div>
-                                            </div>
-                                            <!-- Single Recommended Product -->
-                                            <div class="single-recommended-product d-flex">
-                                                <div class="single-recommended-thumb mr-3">
-                                                    <img src="img/product-img/product-12.jpg" alt="">
-                                                </div>
-                                                <div class="single-recommended-desc">
-                                                    <h6>Women’s T-shirt</h6>
-                                                    <p>$ 39.99</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 
@@ -509,6 +420,7 @@
                     </div>
                 </section>
             </div>
+        <!-- vue end -->
         </div>
 
         <!-- ****** Footer Area Start ****** -->
@@ -617,6 +529,9 @@
                 "inventory": [],
                 // this is the list that will go to the cart
                 cartobj: {},
+                uniquecategory: [],
+                uniquegenre: [],
+                uniqueinstrument: [],
 
             },
             mounted() {
@@ -705,6 +620,21 @@
                                     this.message = data.message;
                                 } else {
                                     this.inventory = data.data.inventories;
+                                    // create unique category list
+                                    for (item of data.data.inventories){
+                                        if (!(this.uniquegenre.includes(item.item_category)) && item.item_category != "Instrument"){
+                                            this.uniquegenre.push(item.item_category)
+                                        } else if (item.item_category == "Instrument"){                                            
+                                            var instrumentnamearray = item.item_name.split(" ")                                           
+                                            var instrumentname = instrumentnamearray[instrumentnamearray.length -1]
+                                          
+                                            if (!(this.uniqueinstrument.includes(instrumentname))){
+                                                this.uniqueinstrument.push(instrumentname)
+                                            }
+                                                
+                                        }
+                                       
+                                    } 
                                 }
                             })
                             .catch(error => {
@@ -713,7 +643,7 @@
                                 console.log(this.message + error);
 
                             });
-                
+
                 }
             },
             created: function () {

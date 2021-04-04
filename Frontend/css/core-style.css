@@ -688,6 +688,24 @@ img {
     line-height: 40px;
 }
 
+.a-copy{
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
+    color: #3a3a3a;
+    height: 10px;
+    display: inline-block;
+    line-height: 40px;
+
+}
+
+.a-label{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+
+}
+
 .menu-content li .sub-menu li a:before {
     width: 10px;
     height: 10px;

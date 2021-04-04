@@ -25,8 +25,8 @@ stripe_keys = {
 #   'secret_key': os.environ['STRIPE_SECRET_KEY'],
 #   'publishable_key': os.environ['STRIPE_PUBLISHABLE_KEY']
 
-  'publishable_key': '',
-  'secret_key': ''
+  'publishable_key': 'pk_test_qY6FdjXeOVzqaOPWpOSusWbA',
+  'secret_key': 'sk_test_FC98vSgszYqxPXjq2CqLovbn'
 }
 
 stripe.api_key = stripe_keys['secret_key']

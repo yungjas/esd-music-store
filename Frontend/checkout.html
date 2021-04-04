@@ -95,9 +95,10 @@
 
     <div id="wrapper">
         <div id="app1">
+            
             <!-- ****** Header Area Start ****** -->
             <header class="header_area bg-img background-overlay-white"
-                style="background-image: url(img/bg-img/bg-1.jpg);">
+                style="background-image: url(img/bg-img/bg-new.jpg);">
                 <!-- Top Header Area Start -->
                 <div class="top_header_area">
                     <div class="container h-100">
@@ -194,78 +195,61 @@
 
                                 <div class="cart-page-heading">
                                     <h5>Billing Address</h5>
-                                    <p>Enter your cupone code</p>
+
                                 </div>
+
+                                <!-- asd -->
+
+
 
                                 <form action="#" method="post">
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label for="first_name">First Name <span>*</span></label>
-                                            <input type="text" class="form-control" id="first_name" value="" required>
+                                            <input @change="combine()" v-model="customer_firstname" type="text" class="form-control" id="first_name" value="" required>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="last_name">Last Name <span>*</span></label>
-                                            <input type="text" class="form-control" id="last_name" value="" required>
+                                            <input @change="combine()" v-model="customer_lastname" type="text" class="form-control" id="last_name" value="" required>
                                         </div>
-                                        <div class="col-12 mb-3">
-                                            <label for="company">Company Name</label>
-                                            <input type="text" class="form-control" id="company" value="">
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <label for="country">Country <span>*</span></label>
-                                            <select class="custom-select d-block w-100" id="country">
-                                                <option value="usa">United States</option>
-                                                <option value="uk">United Kingdom</option>
-                                                <option value="ger">Germany</option>
-                                                <option value="fra">France</option>
-                                                <option value="ind">India</option>
-                                                <option value="aus">Australia</option>
-                                                <option value="bra">Brazil</option>
-                                                <option value="cana">Canada</option>
-                                            </select>
-                                        </div>
+
                                         <div class="col-12 mb-3">
                                             <label for="street_address">Address <span>*</span></label>
-                                            <input type="text" class="form-control mb-3" id="street_address" value="">
-                                            <input type="text" class="form-control" id="street_address2" value="">
+                                            <input v-model="customer_address" type="text" class="form-control mb-3" id="street_address" value="">
+
                                         </div>
-                                        <div class="col-12 mb-3">
+                                        <!-- <div class="col-12 mb-3">
                                             <label for="postcode">Postcode <span>*</span></label>
                                             <input type="text" class="form-control" id="postcode" value="">
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <label for="city">Town/City <span>*</span></label>
-                                            <input type="text" class="form-control" id="city" value="">
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <label for="state">Province <span>*</span></label>
-                                            <input type="text" class="form-control" id="state" value="">
-                                        </div>
+                                        </div> -->
+
+
                                         <div class="col-12 mb-3">
                                             <label for="phone_number">Phone No <span>*</span></label>
-                                            <input type="number" class="form-control" id="phone_number" min="0"
+                                            <input v-model="customer_contact" type="number" class="form-control" id="phone_number" min="0"
                                                 value="">
                                         </div>
                                         <div class="col-12 mb-4">
-                                            <label for="email_address">Email Address <span>*</span></label>
-                                            <input type="email" class="form-control" id="email_address" value="">
+                                            <label for="telegram_id">Telegram ID <span>*</span></label>
+                                            <input v-model="telegram_id" type="text" class="form-control" id="telegram_id" value="">
                                         </div>
 
                                         <div class="col-12">
                                             <div class="custom-control custom-checkbox d-block mb-2">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                                <label class="custom-control-label" for="customCheck1">Terms and
+                                                <label class="custom-control-label" for="customCheck1"> I agree to the Terms and
                                                     conitions</label>
                                             </div>
                                             <div class="custom-control custom-checkbox d-block mb-2">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                                <a style="font-size: 13px; font-family: 'Open Sans', sans-serif; color: blue; text-decoration: underline; " href="terms.html"> Terms and conditions </a>
+                                                <!-- <input type="checkbox" class="custom-control-input" id="customCheck2">
                                                 <label class="custom-control-label" for="customCheck2">Create an
-                                                    accout</label>
+                                                    accout</label> -->
                                             </div>
                                             <div class="custom-control custom-checkbox d-block">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck3">
+                                                <!-- <input type="checkbox" class="custom-control-input" id="customCheck3">
                                                 <label class="custom-control-label" for="customCheck3">Subscribe to our
-                                                    newsletter</label>
+                                                    newsletter</label> -->
                                             </div>
                                         </div>
                                     </div>
@@ -296,78 +280,9 @@
                                 </ul>
 
 
-                                <div id="accordion" role="tablist" class="mb-4">
-                                    <div class="card">
-                                        <div class="card-header" role="tab" id="headingOne">
-                                            <h6 class="mb-0">
-                                                <a data-toggle="collapse" href="#collapseOne" aria-expanded="false"
-                                                    aria-controls="collapseOne"><i
-                                                        class="fa fa-circle-o mr-3"></i>Paypal</a>
-                                            </h6>
-                                        </div>
-
-                                        <div id="collapseOne" class="collapse" role="tabpanel"
-                                            aria-labelledby="headingOne" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                                                    pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ
-                                                    er bibendum sodales arcu id te mpus. Ut consectetur lacus.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header" role="tab" id="headingTwo">
-                                            <h6 class="mb-0">
-                                                <a class="collapsed" data-toggle="collapse" href="#collapseTwo"
-                                                    aria-expanded="false" aria-controls="collapseTwo"><i
-                                                        class="fa fa-circle-o mr-3"></i>cash on delievery</a>
-                                            </h6>
-                                        </div>
-                                        <div id="collapseTwo" class="collapse" role="tabpanel"
-                                            aria-labelledby="headingTwo" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
-                                                    quis in veritatis officia inventore, tempore provident dignissimos.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header" role="tab" id="headingThree">
-                                            <h6 class="mb-0">
-                                                <a class="collapsed" data-toggle="collapse" href="#collapseThree"
-                                                    aria-expanded="false" aria-controls="collapseThree"><i
-                                                        class="fa fa-circle-o mr-3"></i>credit card</a>
-                                            </h6>
-                                        </div>
-                                        <div id="collapseThree" class="collapse" role="tabpanel"
-                                            aria-labelledby="headingThree" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse quo
-                                                    sint repudiandae suscipit ab soluta delectus voluptate, vero vitae
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header" role="tab" id="headingFour">
-                                            <h6 class="mb-0">
-                                                <a class="collapsed" data-toggle="collapse" href="#collapseFour"
-                                                    aria-expanded="true" aria-controls="collapseFour"><i
-                                                        class="fa fa-circle-o mr-3"></i>direct bank transfer</a>
-                                            </h6>
-                                        </div>
-                                        <div id="collapseFour" class="collapse show" role="tabpanel"
-                                            aria-labelledby="headingThree" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est cum
-                                                    autem eveniet saepe fugit, impedit magni.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <a href="payment.html" class="btn karl-checkout-btn">Place Order</a>
+                                
+                                <!-- href="payment.html" -->
+                                <a @click="placeOrder()" class="btn karl-checkout-btn">Place Order</a>
                             </div>
                         </div>
 
@@ -445,33 +360,113 @@
                 </div>
             </footer>
             <!-- ****** Footer Area End ****** -->
+
+        <!-- vue end -->
         </div>
     </div>
     <!-- /.wrapper end -->
 
     <script type="application/javascript">
+        var place_order_URL = "http://localhost:7100/place_order";
         var app = new Vue({
             el: "#app1",
             data: {
 
                 shopitemcount: 0,
                 displayprice: 0,
-                test:0,
-                // i assume this is where the dataset of SQL will go
-                // (`item_name`, `artist`, `item_id`, `item_price`, `item_quantity`, `item_category`, `item_status`)
-                datalist: [{ "name": "dress", "price": "11", "itemID": 0 },
-                { "name": "jeans", "price": "11", "itemID": 1 },
-                { "name": "shorts1", "price": "12", "itemID": 2 },
-                { "name": "shorts2", "price": "13", "itemID": 3 },
-                { "name": "shorts3", "price": "14", "itemID": 4 },
-                { "name": "shorts4", "price": "15", "itemID": 5 },
-                { "name": "shorts5", "price": "16", "itemID": 6 },
-
-                ],
-                // this is the list that will go to the cart
                 cartobj: {},
 
+                message: "There is a problem retrieving item data, please try again later.",
+                orderedItems: "",
+                orderPlaced: false,
+                orderSuccessful: false,
+
+                customer_id: "2",
+                customer_firstname: '',
+                customer_lastname: '',
+                customer_name: '',
+                customer_address: '',
+                customer_contact: '',
+                telegram_id: '',
+                cart_item: [],
+                orderString: {"customer_id": "", "customer_name": "", "customer_address": "", "customer_contact": "", "telegram_id": "", "cart_item":""}
+                
+            }
+
+            , methods: {
+                combine: function(){
+                    this.customer_name = this.customer_firstname + " " + this.customer_lastname
+                },
+
+                placeOrder: function(){
+                    this.orderString["customer_id"] = this.customer_id
+                    this.orderString["customer_name"] = this.customer_firstname
+                    this.orderString["customer_address"] = this.customer_address
+                    this.orderString["customer_contact"] = this.customer_contact
+                    this.orderString["telegram_id"] = this.telegram_id
+                    this.orderString["cart_item"] = this.cart_item
+
+                    fetch(place_order_URL,
+                        {
+                            method: "POST",
+                            headers: {
+                                    "Content-type": "application/json"
+                            },
+                            body: JSON.stringify(this.orderString)
+                        })
+                    .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            result = data.data;
+                            console.log(result);
+                            // 3 cases
+                            switch (data.code) {
+                                case 201:
+                                    // 201
+                                    this.orderSuccessful = true;
+                                    orderMessage =
+                                        `Order placed
+                                        Order Result:
+                                        ${result.order_result.code}:successful`;
+                                        // ${result.order_result.data.status};
+                                    break;
+
+                                case 400:
+                                    // 400 
+                                    this.orderSuccessful = true;
+                                    orderMessage =
+                                        `Order placed
+                                        Order Result:
+                                        ${result.order_result.code}:${result.order_result.data.status}
+
+                                        Error handling:
+                                        ${data.message}`;
+                                    break;
+                                case 500:
+                                    // 500 
+                                    orderMessage =
+                                        `Order placed with error:
+                                        Order Result:
+                                        ${result.order_result.code}:${result.order_result.message}
+
+                                        Error handling:
+                                        ${data.message}`;
+                                    break;
+                                default:
+                                    orderMessage = `Unexpected error: ${data.code}`;
+                                    console.log(`Unknown error code : ${data.code}`);
+                                    break;
+
+                            } // switch
+                            console.log(orderMessage);
+                            this.orderPlaced = true;
+                        })
+                        .catch(error => {
+                            console.log("Problem in placing an order. " + error);
+                        })
+                }
             }, mounted() {
+                
                 if (localStorage.getItem('cart')) {
                     try {
                         this.cartobj = JSON.parse(localStorage.getItem('cart'));
@@ -485,6 +480,10 @@
                 if (localStorage.qty) {
                     this.shopitemcount = localStorage.qty;
                 }
+                for (itemID in this.cartobj){
+                        obj = {"item_id": itemID, "quantity":this.cartobj[itemID].qty}
+                        this.cart_item.push(obj)
+                    }
 
             }
         })
