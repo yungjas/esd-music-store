@@ -97,7 +97,6 @@
     <div id="wrapper">
         <div id="app1">
 
-
             <!-- ****** Header Area Start ****** -->
             <header class="header_area bg-img background-overlay-white"
                 style="background-image: url(img/bg-img/bg-new.jpg);">
@@ -459,6 +458,7 @@
                     orderString: { "customer_id": "", "customer_name": "", "customer_address": "", "customer_contact": "", "telegram_id": "", "cart_item": "" },
                     orderstatus: '',
 
+
                 }
 
                 , methods: {
@@ -503,6 +503,8 @@
                                     case 400:
                                         // 400 
                                         this.orderSuccessful = true;
+                                        this.orderstatus = "Order has failed"
+
                                         orderMessage =
                                             `Order placed
                                         Order Result:
@@ -510,7 +512,7 @@
                                         
                                         Error handling:
                                         ${data.message}`;
-                                        this.orderstatus = "Order has failed"
+                                         
                                         
                                         break;
                                     case 500:
