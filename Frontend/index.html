@@ -112,7 +112,7 @@
                 </div>
 
                 <!-- Top Header Area End -->
-                <div class="main_header_area" style="color: black;">
+                <div class="main_header_area">
                     <div class="container h-100">
                         <div class="row h-100">
                             <div class="col-12 d-md-flex justify-content-between">
@@ -125,7 +125,7 @@
                                     <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> -->
                                 </div>
                                 <!-- Menu Area -->
-                                <div class="main-menu-area">
+                                <div class="main-menu-area" style="z-index: 0;">
                                     <nav class="navbar navbar-expand-lg align-items-start">
 
                                         <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -142,7 +142,7 @@
 
                                                 <!-- <li class="nav-item"><a class="nav-link" href="#"> Albums </a></li>
                                                 <li class="nav-item"><a class="nav-link" href="#"> Instruments </a></li> -->
-                                                <li class="nav-item"><a class="nav-link" href="cart.html"> Cart </a></li>
+                                                <li class="nav-item"><a class="nav-link" @click="savecart()" href="cart.html"> Cart </a></li>
                                                 <li class="nav-item"><a class="nav-link" href="checkout.html"> Checkout </a></li>
 
                                             </ul>
