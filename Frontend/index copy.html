@@ -37,7 +37,12 @@
     <div id="wrapper">
 
         <div id="app1">
-            <!-- {{testarea}} -->
+            {{displayprice}}
+            {{cartobj}}
+            <!-- {{inventory}}
+            <br>
+            {{cartobj}} -->
+            <!-- {{cartobj}} -->
             <!-- ****** Header Area Start ****** -->
             <header class="header_area bg-img background-overlay-white"
                 style="background-image: url(img/bg-img/bg-new.jpg);">
@@ -540,8 +545,7 @@
                 filteritem: [],
                 sortedbycategoryinventory: {},
                 temp: [],
-                fullinventory: [],
-    
+                fullinventory: []
 
             },
             mounted() {
@@ -563,18 +567,6 @@
             },
             methods: {
                 // frontend functions
-                 deletethis: function (itemID) {
-                    delete this.cartobj[itemID];
-
-                    todisplayprice = 0;
-                    this.shopitemcount = 0;
-                    for (inneritemID in this.cartobj) {
-                        this.shopitemcount += Number(this.cartobj[inneritemID].qty)
-                        todisplayprice += this.cartobj[inneritemID].item_price * this.cartobj[inneritemID].qty
-                    }
-                    this.displayprice = todisplayprice.toFixed(2);
-
-                },
                 filter: function () {
 
                     //click filter select thing loop through inventory and pick out those
@@ -627,6 +619,16 @@
 
 
                     // delete this item from the cart
+                }, deletethis: function (itemID) {
+                    delete this.cartobj[itemID];
+
+                    todisplayprice = 0;
+                    this.shopitemcount = 0;
+                    for (inneritemID in this.cartobj) {
+                        this.shopitemcount += Number(this.cartobj[inneritemID].qty)
+                        todisplayprice += this.cartobj[inneritemID].price * this.cartobj[inneritemID].qty
+                    }
+                    this.displayprice = todisplayprice.toFixed(2);
                 }, savecart() {
                     const parsed = JSON.stringify(this.cartobj);
                     localStorage.setItem('cart', parsed);
