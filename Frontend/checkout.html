@@ -127,11 +127,11 @@
                             <div class="col-12 d-md-flex justify-content-between">
                                 <!-- Header Social Area -->
                                 <div class="header-social-area">
-                                    <a href="#"><span class="karl-level">Share</span> <i class="fa fa-pinterest"
+                                    <!-- <a href="#"><span class="karl-level">Share</span> <i class="fa fa-pinterest"
                                             aria-hidden="true"></i></a>
                                     <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                                     <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> -->
                                 </div>
                                 <!-- Menu Area -->
                                 <div class="main-menu-area">
@@ -154,8 +154,8 @@
                                                         href="index.html">Home</a>
                                                 </li>
 
-                                                <li class="nav-item"><a class="nav-link" href="#"> Albums </a></li>
-                                                <li class="nav-item"><a class="nav-link" href="#"> Instruments </a></li>
+                                                <!-- <li class="nav-item"><a class="nav-link" href="#"> Albums </a></li>
+                                                <li class="nav-item"><a class="nav-link" href="#"> Instruments </a></li> -->
                                                 <li class="nav-item"><a class="nav-link" href="cart.html"> Cart </a>
                                                 </li>
                                                 <li class="nav-item"><a class="nav-link" href="checkout.html"> Checkout
@@ -246,10 +246,10 @@
                                                 <input type="checkbox" class="custom-control-input" id="customCheck1">
                                                 <label class="custom-control-label" for="customCheck1"> I agree to the
                                                     Terms and
-                                                    conitions</label>
+                                                    conitions <span>*</span> </label> 
                                             </div>
                                             <div class="custom-control custom-checkbox d-block mb-2">
-                                                <a style="font-size: 13px; font-family: 'Open Sans', sans-serif; color: blue; text-decoration: underline; "
+                                                <a style="font-size: 13px; font-family: 'Open Sans', sans-serif; color: blue; text-decoration: underline; " data-toggle="modal" data-target="#termsmodal"
                                                     href="terms.html"> Terms and conditions </a>
                                                 <!-- <input type="checkbox" class="custom-control-input" id="customCheck2">
                                                 <label class="custom-control-label" for="customCheck2">Create an
@@ -265,6 +265,29 @@
                                 </form>
                             </div>
                         </div>
+
+                        <!-- terms and condition -->
+                        <div class="modal fade" id="termsmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus maxime modi, quasi amet ratione asperiores accusantium nihil repellendus recusandae hic ut praesentium. Architecto, eius nam tempore odio perspiciatis corporis eaque.
+                                    <br>
+                                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora obcaecati perferendis quibusdam earum. Odit culpa minima ipsum, reprehenderit est, commodi vero pariatur consequatur ducimus ratione maxime earum quas harum. Dignissimos.
+                                </div>
+                                <div class="modal-footer">
+                                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"></button> -->
+                                  <button type="button" class="btn btn-success" data-dismiss="modal">I Understand</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
 
                         <div class="col-12 col-md-6 col-lg-5 ml-lg-auto">
                             <div class="order-details-confirmation">
