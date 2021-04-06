@@ -133,14 +133,14 @@
                                             <div class="collapse navbar-collapse align-items-start collapse"
                                             id="karl-navbar">
                                             <ul class="navbar-nav animated" id="nav">
-                                                <li class="nav-item active"><a class="nav-link"
+                                                <li class="nav-item active"><a style="color: black;" class="nav-link" 
                                                         href="index.html">Home</a>
                                                 </li>
 
                                                 <!-- <li class="nav-item"><a class="nav-link" href="#"> Albums </a></li>
                                                 <li class="nav-item"><a class="nav-link" href="#"> Instruments </a></li> -->
-                                                <li class="nav-item"><a class="nav-link" @click="savecart()" href="cart.html"> Cart </a></li>
-                                                <li class="nav-item"><a class="nav-link" href="checkout.html"> Checkout </a></li>
+                                                <li class="nav-item"><a style="color: black;" class="nav-link" @click="savecart()" href="cart.html"> Cart </a></li>
+                                                <li class="nav-item"><a style="color: black;" class="nav-link" href="checkout.html"> Checkout </a></li>
 
                                             </ul>
                                         </div>
@@ -573,7 +573,7 @@
                         todisplayprice += this.cartobj[inneritemID].item_price * this.cartobj[inneritemID].qty
                     }
                     this.displayprice = todisplayprice.toFixed(2);
-
+                    this.savecart()
                 },
                 filter: function () {
 

@@ -43,7 +43,7 @@ INSERT INTO `inventory` (`item_name`, `artist`, `item_id`, `item_price`, `item_q
 ('IGOR', 'Tyler, The Creator', '190759652022', '9.99', 0, 'Rap & HipHop', 'Out of Stock'),
 ('Fuzzybrain', 'Dayglow', '194397445391', '13.99', 0, 'Indie', 'Out of Stock'),
 ('Please Be Mine', 'Molly Burch', '194397460985', '13.99', 7, 'Rock & Pop', 'In Stock'),
-('Rubber Soul', 'The Beatles', '194397463451', '14.99', 8, 'Rock & Pop', 'In Stock'),
+('Rubber Soul', 'The Beatles', '194397463451', '14.99', 1, 'Rock & Pop', 'In Stock'),
 ('Dark Side Of The Moon', 'Pink Floyd', '194397464528', '19.99', 7, 'Rock & Pop', 'In Stock'),
 ('The Beautiful & The Damned', 'G-Eazy', '194397466573', '10.99', 10, 'Rap & Hip-Hop', 'In Stock'),
 ('Fearless', 'Wolfalice', '194397468649', '9.99', 11, 'Rock & Pop', 'In Stock'),
