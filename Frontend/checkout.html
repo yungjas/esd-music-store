@@ -24,75 +24,7 @@
 </head>
 
 <body>
-    
-    <div class="catagories-side-menu">
-        <!-- Close Icon -->
-        <div id="sideMenuClose">
-            <i class="ti-close"></i>
-        </div>
-        <!--  Side Nav  -->
-        <div class="nav-side-menu">
-            <div class="menu-list">
-                <h6>Categories</h6>
-                <ul id="menu-content" class="menu-content collapse out">
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#women" class="collapsed active">
-                        <a href="#">Woman wear <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="women">
-                            <li><a href="#">Midi Dresses</a></li>
-                            <li><a href="#">Maxi Dresses</a></li>
-                            <li><a href="#">Prom Dresses</a></li>
-                            <li><a href="#">Little Black Dresses</a></li>
-                            <li><a href="#">Mini Dresses</a></li>
-                        </ul>
-                    </li>
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#man" class="collapsed">
-                        <a href="#">Man Wear <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="man">
-                            <li><a href="#">Man Dresses</a></li>
-                            <li><a href="#">Man Black Dresses</a></li>
-                            <li><a href="#">Man Mini Dresses</a></li>
-                        </ul>
-                    </li>
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#kids" class="collapsed">
-                        <a href="#">Children <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="kids">
-                            <li><a href="#">Children Dresses</a></li>
-                            <li><a href="#">Mini Dresses</a></li>
-                        </ul>
-                    </li>
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#bags" class="collapsed">
-                        <a href="#">Bags &amp; Purses <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="bags">
-                            <li><a href="#">Bags</a></li>
-                            <li><a href="#">Purses</a></li>
-                        </ul>
-                    </li>
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#eyewear" class="collapsed">
-                        <a href="#">Eyewear <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="eyewear">
-                            <li><a href="#">Eyewear Style 1</a></li>
-                            <li><a href="#">Eyewear Style 2</a></li>
-                            <li><a href="#">Eyewear Style 3</a></li>
-                        </ul>
-                    </li>
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#footwear" class="collapsed">
-                        <a href="#">Footwear <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="footwear">
-                            <li><a href="#">Footwear 1</a></li>
-                            <li><a href="#">Footwear 2</a></li>
-                            <li><a href="#">Footwear 3</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+
 
     <div id="wrapper">
         <div id="app1">
@@ -214,13 +146,13 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="last_name">Last Name <span>*</span></label>
-                                            <input @change="combine()" v-model="customer_lastname" type="text"
+                                            <input @change="checkrequirements()" @change="combine()" v-model="customer_lastname" type="text"
                                                 class="form-control" id="last_name" value="" required>
                                         </div>
 
                                         <div class="col-12 mb-3">
                                             <label for="street_address">Address <span>*</span></label>
-                                            <input v-model="customer_address" type="text" class="form-control mb-3"
+                                            <input @change="checkrequirements()" v-model="customer_address" type="text" class="form-control mb-3"
                                                 id="street_address" value="">
 
                                         </div>
@@ -232,7 +164,7 @@
 
                                         <div class="col-12 mb-3">
                                             <label for="phone_number">Phone No <span>*</span></label>
-                                            <input v-model="customer_contact" type="number" class="form-control"
+                                            <input @change="checkrequirements()" v-model="customer_contact" type="number" class="form-control"
                                                 id="phone_number" min="0" value="">
                                         </div>
                                         <!-- <div class="col-12 mb-4">
@@ -242,7 +174,7 @@
 
                                         <div class="col-12">
                                             <div class="custom-control custom-checkbox d-block mb-2">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                <input @change="checkrequirements()" v-model="checkedterms" type="checkbox" class="custom-control-input" id="customCheck1">
                                                 <label class="custom-control-label" for="customCheck1"> I agree to the
                                                     Terms and
                                                     conitions <span>*</span> </label> 
@@ -313,11 +245,10 @@
                                     </li>
                                 </ul>
 
-
-
                                 <!-- href="payment.html" -->
-                                <a @click="placeOrder()" class="btn karl-checkout-btn" data-toggle="modal" data-target="#exampleModalCenter">Place Order</a>
-
+                                <a v-if="metrequirements" @click="placeOrder()" class="btn karl-checkout-btn" data-toggle="modal" data-target="#exampleModalCenter">Place Order</a>
+                                <a v-if="havenotmetrequirements" @click="placeOrder()" class="btn karl-checkout-btn" style="opacity: 50%;">Place Order</a>
+                                <p v-if="havenotmetrequirements" style="color: red;"> <br>* Please fill up all the fields and agree to the terms and conditions </p>
 
                             
                                 <!-- Modal -->
@@ -457,7 +388,10 @@
                     cart_item: [],
                     orderString: { "customer_id": "", "customer_name": "", "customer_address": "", "customer_contact": "", "telegram_id": "", "cart_item": "" },
                     orderstatus: '',
-
+                    errormsg: [],
+                    checkedterms: '',
+                    metrequirements: false,
+                    havenotmetrequirements: true
 
                 }
 
@@ -465,8 +399,18 @@
                     combine: function () {
                         this.customer_name = this.customer_firstname + " " + this.customer_lastname
                     },
+                    checkrequirements: function () {
+                        if ( this.checkedterms && this.customer_name != "" && this.customer_address !="" && this.customer_contact != ""){
+                            this.metrequirements = true
+                            this.havenotmetrequirements = false
+                        } else {
+                            this.metrequirements = false
+                            this.havenotmetrequirements = true
+                        }
+                    },
 
                     placeOrder: function () {
+
                         this.orderString["customer_id"] = this.customer_id
                         this.orderString["customer_name"] = this.customer_firstname
                         this.orderString["customer_address"] = this.customer_address
