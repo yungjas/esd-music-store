@@ -1,0 +1,105 @@
+version: "3.8"
+
+volumes:
+  rabbitmq_data:
+
+services:
+
+  ###################################
+  # Inventory: The inventory microservice
+  ###################################
+  inventory:
+    build:
+      context: ./
+      dockerfile: inventory.Dockerfile
+    image: shawntwj/inventory:esd
+    restart: always
+    environment:
+      dbURL: mysql+mysqlconnector://is213@host.docker.internal:3308/inventory
+      PYTHONUNBUFFERED: 1
+    ports:
+        - "7000:7000"
+
+  ####################################
+  # RabbitMQ: The messaging broker   
+  ####################################
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: esd-rabbit
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes: 
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  ###################################
+  # Error: The Error microservice
+  ###################################
+  error:
+    build:
+      context: ./
+      dockerfile: error.Dockerfile
+    image: shawntwj/error:esd
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      rabbit_host: rabbitmq
+      rabbit_port: 5672
+      PYTHONUNBUFFERED: 1      
+
+  ###################################
+  # Order: The Order microservice
+  ###################################
+  order:
+    build:
+      context: ./
+      dockerfile: order.Dockerfile
+    image: shawntwj/order:esd
+    restart: always
+    environment:
+      dbURL: mysql+mysqlconnector://is213@host.docker.internal:3308/order
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "7001:7001"      
+
+  ###################################
+  # Payment: The Payment microservice
+  ###################################
+  payment:
+    build:
+      context: ./
+      dockerfile: payment.Dockerfile
+    image: shawntwj/payment:esd
+    restart: always
+    environment:
+      dbURL: mysql+mysqlconnector://is213@host.docker.internal:3308/payment
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "7002:7002"
+
+  ###############################################
+  # Place Order: The Place Order microservice
+  ###############################################
+  place_order:
+    build:
+      context: ./
+      dockerfile: place_order.Dockerfile
+    image: shawntwj/place_order:esd
+    restart: always
+    depends_on:
+      - order
+      - inventory
+      - payment
+      - error
+      - rabbitmq
+    environment:
+      rabbit_host: rabbitmq
+      rabbit_port: 5672
+      order_URL: http://order:7001/order
+      inventory:_URL: http://inventory:7000/inventory
+      payment_URL:  http://payment:7002/payment
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "7100:7100"
