@@ -20,6 +20,8 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle': 299}
 
 db = SQLAlchemy(app)
 
+CORS(app)
+
 # Stripe config
 stripe_keys = {
 #   'secret_key': os.environ['STRIPE_SECRET_KEY'],
