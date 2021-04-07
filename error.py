@@ -17,6 +17,8 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
+monitor_binding_key ='*.error'
+
 class Error(db.Model):
     __tablename__ = 'error'
     error_id = db.Column(db.Integer, primary_key=True)
@@ -85,6 +87,7 @@ def process_error(error_msg):
 
 
 if __name__ == "__main__":
-    print("This is flask for " + os.path.basename(__file__) + ": processing errors ...")
+    print("\nThis is " + os.path.basename(__file__), end='')
+    print(": monitoring routing key '{}' in exchange '{}' ...".format(monitor_binding_key, amqp_setup.exchangename))
     #app.run(port=7003, debug=True)
     receive_error()
