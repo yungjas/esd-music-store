@@ -60,7 +60,7 @@ services:
     image: jasmine999/order:esd
     restart: always
     environment:
-      dbURL: mysql+mysqlconnector://is213@host.docker.internal:3308/order
+      dbURL: mysql+mysqlconnector://is213@host.docker.internal:3308/order_music
       PYTHONUNBUFFERED: 1
     ports:
       - "7001:7001"      
