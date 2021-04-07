@@ -12,7 +12,7 @@ services:
     build:
       context: ./
       dockerfile: inventory.Dockerfile
-    image: shawntwj/inventory:esd
+    image: jasmine999/inventory:esd
     restart: always
     environment:
       dbURL: mysql+mysqlconnector://is213@host.docker.internal:3308/inventory
@@ -40,13 +40,14 @@ services:
     build:
       context: ./
       dockerfile: error.Dockerfile
-    image: shawntwj/error:esd
+    image: jasmine999/error:esd
     restart: always
     depends_on:
       - rabbitmq
     environment:
       rabbit_host: rabbitmq
       rabbit_port: 5672
+      dbURL: mysql+mysqlconnector://is213@host.docker.internal:3308/error
       PYTHONUNBUFFERED: 1      
 
   ###################################
@@ -56,7 +57,7 @@ services:
     build:
       context: ./
       dockerfile: order.Dockerfile
-    image: shawntwj/order:esd
+    image: jasmine999/order:esd
     restart: always
     environment:
       dbURL: mysql+mysqlconnector://is213@host.docker.internal:3308/order
@@ -71,7 +72,7 @@ services:
     build:
       context: ./
       dockerfile: payment.Dockerfile
-    image: shawntwj/payment:esd
+    image: jasmine999/payment:esd
     restart: always
     environment:
       dbURL: mysql+mysqlconnector://is213@host.docker.internal:3308/payment
@@ -86,7 +87,7 @@ services:
     build:
       context: ./
       dockerfile: place_order.Dockerfile
-    image: shawntwj/place_order:esd
+    image: jasmine999/place_order:esd
     restart: always
     depends_on:
       - order
@@ -98,7 +99,7 @@ services:
       rabbit_host: rabbitmq
       rabbit_port: 5672
       order_URL: http://order:7001/order
-      inventory:_URL: http://inventory:7000/inventory
+      inventory_URL: http://inventory:7000/inventory
       payment_URL:  http://payment:7002/payment
       PYTHONUNBUFFERED: 1
     ports:
