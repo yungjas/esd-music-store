@@ -37,7 +37,8 @@
     <div id="wrapper">
 
         <div id="app1">
-            <!-- {{testarea}} -->
+            <!-- dsa -->
+
             <!-- ****** Header Area Start ****** -->
             <header class="header_area bg-img background-overlay-white"
                 style="background-image: url(img/bg-img/bg-new.jpg);">
@@ -50,7 +51,7 @@
                                 <div class="top_single_area d-flex align-items-center">
                                     <!-- Logo Area -->
                                     <div class="top_logo">
-                                        <a href="#"><img src="img/core-img/logo.png" alt=""></a>
+                                        <a href="index.html"><img src="img/core-img/logo.png" alt=""></a>
                                     </div>
                                     <!-- Cart & Menu Area -->
                                     <div class="header-cart-menu d-flex align-items-center ml-auto">
@@ -193,12 +194,12 @@
                                         <div class="row">
                                             <div class="col-12 col-lg-5">
                                                 <div class="quickview_pro_img">
-                                                    <img src="img/product-img/product-190758883625.jpg" alt="">
+                                                    <img v-bind:src="'img/product-img/product-' + showquickview.item_id + '.jpg'" alt="" height="435" width="434"> 
                                                 </div>
                                             </div>
                                             <div class="col-12 col-lg-7">
                                                 <div class="quickview_pro_des">
-                                                    <h4 class="title">Boutique Silk Dress</h4>
+                                                    <h4 class="title">{{showquickview.item_name}}</h4>
                                                     <div class="top_seller_product_rating mb-15">
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -206,55 +207,26 @@
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                     </div>
-                                                    <h5 class="price">$120.99 <span>$130</span></h5>
+                                                    <h5 class="price">${{showquickview.item_price}} </h5>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                                                         Mollitia
                                                         expedita quibusdam aspernatur, sapiente consectetur accusantium
                                                         perspiciatis praesentium eligendi, in fugiat?</p>
                                                     <a href="#">View Full Product Details</a>
-                                                </div>
+                                                
                                                 <!-- Add to Cart Form -->
-                                                <form class="cart" method="post">
-                                                    <div class="quantity">
-                                                        <!-- error -->
-                                                        <span class="qty-minus"
-                                                            onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i
-                                                                class="fa fa-minus" aria-hidden="true"></i></span>
+                                                <div v-if="showquickview.item_status == 'Out of Stock'">
+                                                    <br>
+                                                    <p style="color: red;"> Out of stock </p>
+                                                </div>
 
-                                                        <input type="number" class="qty-text" id="qty" step="1" min="1"
-                                                            max="12" name="quantity" value="1">
-
-                                                        <span class="qty-plus"
-                                                            onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i
-                                                                class="fa fa-plus" aria-hidden="true"></i></span>
-                                                    </div>
-                                                    <button type="submit" name="addtocart" value="5"
-                                                        class="cart-submit">Add
-                                                        to
-                                                        cart</button>
-                                                    <!-- Wishlist -->
-                                                    <div class="modal_pro_wishlist">
-                                                        <a href="wishlist.html" target="_blank"><i
-                                                                class="ti-heart"></i></a>
-                                                    </div>
-                                                    <!-- Compare -->
-                                                    <div class="modal_pro_compare">
-                                                        <a href="compare.html" target="_blank"><i
-                                                                class="ti-stats-up"></i></a>
-                                                    </div>
-                                                </form>
-
-                                                <div class="share_wf mt-30">
-                                                    <p>Share With Friend</p>
-                                                    <div class="_icon">
-                                                        <a href="#"><i class="fa fa-facebook"
-                                                                aria-hidden="true"></i></a>
-                                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                                        <a href="#"><i class="fa fa-pinterest"
-                                                                aria-hidden="true"></i></a>
-                                                        <a href="#"><i class="fa fa-google-plus"
-                                                                aria-hidden="true"></i></a>
-                                                    </div>
+                                                <div v-if="showquickview.item_status != 'Out of Stock'">
+                                                    <br>
+                                                    <button @click="addcartcount(showquickview.item_id)" href="#"
+                                                    class="btn btn-outline-danger" >ADD TO
+                                                    CART</button>
+                                                </div>
+ 
                                                 </div>
                                             </div>
                                         </div>
@@ -383,12 +355,13 @@
                                         <div class="col-12 col-sm-6 col-lg-4 single_gallery_item wow fadeInUpBig"
                                             v-for="inventoryitem in inventory" data-wow-delay="0.2s">
                                             <!-- Product Image -->
+                                            <!-- dsa -->
                                             <div class="product-img">
                                                 <img alt=""
                                                     v-bind:src="'img/product-img/product-' + inventoryitem.item_id + '.jpg'">
                                                 <div class="product-quicview">
 
-                                                    <a @click="quickview(0)" href="#" data-toggle="modal"
+                                                    <a href="#" @click="quickview(inventoryitem.item_id)" data-toggle="modal"
                                                         data-target="#quickview"><i class="ti-plus"></i></a>
                                                 </div>
                                             </div>
@@ -541,6 +514,7 @@
                 sortedbycategoryinventory: {},
                 temp: [],
                 fullinventory: [],
+                showquickview: ""
     
 
             },
@@ -632,8 +606,14 @@
                     localStorage.setItem('cart', parsed);
                     localStorage.price = this.displayprice;
                     localStorage.qty = this.shopitemcount;
+                    // dsa
                 }, quickview(itemID) {
-                    this.testcount = 69
+                    for (index in this.inventory){
+                        if (this.inventory[index]["item_id"] == itemID){
+                            this.showquickview = this.inventory[index]
+                            this.testcount = 3
+                        }
+                    }
                 },// backend 
 
                 getAllitem: function () {
