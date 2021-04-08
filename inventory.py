@@ -23,8 +23,9 @@ class Inventory(db.Model):
     item_category = db.Column(db.String(64), nullable=False)
     item_quantity = db.Column(db.Integer, nullable=False)
     item_status = db.Column(db.String(64), nullable=False)
+    item_desc = db.Column(db.String(255), nullable=False)
 
-    def __init__(self, item_id, item_name, artist, item_price, item_category, item_quantity, item_status):
+    def __init__(self, item_id, item_name, artist, item_price, item_category, item_quantity, item_status, item_desc):
         self.item_id = item_id
         self.item_name = item_name
         self.artist = artist
@@ -32,9 +33,10 @@ class Inventory(db.Model):
         self.item_category = item_category
         self.item_quantity = item_quantity
         self.item_status = item_status
+        self.item_desc = item_desc
     
     def json(self):
-         return {"item_id": self.item_id, "item_name": self.item_name, "artist": self.artist, "item_price": self.item_price, "item_category": self.item_category, "item_quantity": self.item_quantity, "item_status": self.item_status}
+         return {"item_id": self.item_id, "item_name": self.item_name, "artist": self.artist, "item_price": self.item_price, "item_category": self.item_category, "item_quantity": self.item_quantity, "item_status": self.item_status, "item_desc": self.item_desc}
 
 @app.route("/inventory")
 def get_all():
