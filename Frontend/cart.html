@@ -516,6 +516,10 @@
                         todisplayprice += this.cartobj[inneritemID].price * this.cartobj[inneritemID].qty
                     }
                     this.displayprice = todisplayprice.toFixed(2);
+                    const parsed = JSON.stringify(this.cartobj);
+                    localStorage.setItem('cart', parsed);
+                    localStorage.price = this.displayprice;
+                    localStorage.qty = this.shopitemcount;
                 }
 
             }
