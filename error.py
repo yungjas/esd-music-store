@@ -51,40 +51,6 @@ def process_error(error_msg):
         db.session.commit()
     except Exception as e:
         pass
-    # error_category = error_msg.get("error_category", None)
-    # error_desc = error_msg.get("error_desc", None)
-    # print(error_category)
-    # print(error_desc)
-    # error = Error(error_category=error_category, error_desc=error_desc)
-    # print(error)
-    
-    # try:
-    #     print(json.loads(error_msg))
-    #     db.session.add(error)
-    #     db.session.commit()
-    # except Exception as e:
-    #     return jsonify(
-    #         {
-    #             "code": 500,
-    #             "message": "An error occurred while creating the order. " + str(e)
-    #         }
-    #     ), 500
-    # return jsonify(
-    #     {
-    #         "code": 201,
-    #         "data": error.json()
-    #     }
-    # ), 201
-
-    # print("Printing the error message:")
-    # try:
-    #     error = json.loads(error_msg)
-    #     print("--JSON:", error)
-    # except Exception as e:
-    #     print("--NOT JSON:", e)
-    #     print("--DATA:", error_msg)
-    # print()
-
 
 if __name__ == "__main__":
     print("\nThis is " + os.path.basename(__file__), end='')
