@@ -49,8 +49,11 @@ def process_error(error_msg):
         
         db.session.add(error)
         db.session.commit()
+
+        print("--JSON:", error_msg)
     except Exception as e:
-        pass
+        print("--NOT JSON:", e)
+        print("--DATA:", error_msg)
 
 if __name__ == "__main__":
     print("\nThis is " + os.path.basename(__file__), end='')
