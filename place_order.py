@@ -29,8 +29,6 @@ def place_order():
             order = request.get_json()
             print("\nReceived an order in JSON:", order)
 
-            # do the actual work
-            # 1. Send order info {cart items}
             result = processPlaceOrder(order)
             return jsonify(result), 200
 
@@ -73,16 +71,6 @@ def processPlaceOrder(order):
         amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="order.error", 
             body=error_order_msg, properties=pika.BasicProperties(delivery_mode = 2))
 
-        #amqp_receiver.consume_message()
-        # consume messages from queue
-        # error_msg = amqp_setup.channel.basic_consume(queue="Error_Music", on_message_callback=callback, auto_ack=True)
-        # amqp_setup.channel.start_consuming()
-        # amqp_setup.channel.stop_consuming()
-
-        #invoke_http(error_url, method="POST", json=error_order)
-        
-        #print("Order status ({:d}) sent to the error microservice:".format(code), order_result)
-
         print("\nOrder status ({:d}) published to the RabbitMQ Exchange:".format(
             code), order_result)
 
@@ -97,13 +85,6 @@ def processPlaceOrder(order):
             print("item_info:", item_info)
 
             if item_info["data"]["item_quantity"] == 0:
-                # # make sure status is set to out of stock
-                # if item_info["data"]["item_status"] != "Out of Stock":
-                #     item_info["data"]["item_status"] = "Out of Stock"
-
-                #     # update inventory database
-                #     invoke_http(inventory_url + "/" + item_info["data"]["item_id"], method="PUT", json=item_info)
-
                 # invoke error microservice
                 error_cat_insufficient = "Insufficient stock"
                 error_desc_insufficient = item_info["data"]["item_name"] + " is currently out of stock"
@@ -115,7 +96,6 @@ def processPlaceOrder(order):
 
                 error_insufficient_stock_msg = json.dumps(error_insufficient_stock)
 
-                # if possible consume messages from amqp and save to database
                 print('\n\n-----Publishing the (inventory error) message with routing_key=inventory.error-----')
                 amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="inventory.error", 
                     body=error_insufficient_stock_msg, properties=pika.BasicProperties(delivery_mode = 2))
