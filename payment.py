@@ -76,7 +76,6 @@ def create_payment():
         db.session.commit()
 
         # Stripe charge
-        # thinking of adding billing address, type of card i.e. visa, mastercard etc
         resp = stripe.Charge.create( 
             amount = amount_in_cents,
             source = "tok_visa",
