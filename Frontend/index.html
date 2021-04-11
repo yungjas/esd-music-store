@@ -30,14 +30,11 @@
 
 </head>
 
-<!--  v-bind:class="{'cart-data-open': isActive}" -->
 
 <body>
-
     <div id="wrapper">
-
+        <!-- start of vue -->
         <div id="app1">
-            <!-- dsa -->
             <!-- ****** Header Area Start ****** -->
             <header class="header_area bg-img background-overlay-white"
                 style="background-image: url(img/bg-img/bg-new.jpg);">
@@ -86,7 +83,6 @@
                                                 </li>
 
 
-
                                                 <li class="total">
                                                     <span class="pull-right">${{displayprice}}</span>
                                                     <a @click="savecart()" href="cart.html"
@@ -97,9 +93,7 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <!-- <div class="header-right-side-menu ml-15">
-                                            <a href="#" id="sideMenuBtn"><i class="ti-menu" aria-hidden="true"></i></a>
-                                        </div> -->
+
                                     </div>
                                 </div>
                             </div>
@@ -115,11 +109,6 @@
                             <div class="col-12 d-md-flex justify-content-between">
                                 <!-- Header Social Area -->
                                 <div class="header-social-area">
-                                    <!-- <a href="#"><span class="karl-level">Share</span> <i class="fa fa-pinterest"
-                                            aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> -->
                                 </div>
                                 <!-- Menu Area -->
                                 <div class="main-menu-area" style="z-index: 0;">
@@ -130,17 +119,16 @@
                                             aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i
                                                     class="ti-menu"></i></span></button>
 
-                                            <div class="collapse navbar-collapse align-items-start collapse"
+                                        <div class="collapse navbar-collapse align-items-start collapse"
                                             id="karl-navbar">
                                             <ul class="navbar-nav animated" id="nav">
-                                                <li class="nav-item active"><a style="color: black;" class="nav-link" 
+                                                <li class="nav-item active"><a style="color: black;" class="nav-link"
                                                         href="index.html">Home</a>
                                                 </li>
-
-                                                <!-- <li class="nav-item"><a class="nav-link" href="#"> Albums </a></li>
-                                                <li class="nav-item"><a class="nav-link" href="#"> Instruments </a></li> -->
-                                                <li class="nav-item"><a style="color: black;" class="nav-link" @click="savecart()" href="cart.html"> Cart </a></li>
-                                                <li class="nav-item"><a style="color: black;" class="nav-link" href="checkout.html"> Checkout </a></li>
+                                                <li class="nav-item"><a style="color: black;" class="nav-link"
+                                                        @click="savecart()" href="cart.html"> Cart </a></li>
+                                                <li class="nav-item"><a style="color: black;" class="nav-link"
+                                                        href="checkout.html"> Checkout </a></li>
 
                                             </ul>
                                         </div>
@@ -158,19 +146,20 @@
                     <!-- Single Discount Area -->
                     <div class="single-discount-area">
                         <h5>Free Shipping &amp; Returns</h5>
-                        <h6><a href="#">BUY NOW</a></h6>
+                        <h6>BUY NOW</h6>
                     </div>
 
 
                 </section>
 
                 <br>
+                <!-- search bar -->
                 <div style="padding-left: 27%; padding-right: 27%; padding-top: 20px;">
                     <div class="input-group mb-3">
                         <input v-on:keyup.enter="getSearchitem()" v-model="searchname" type="text" class="form-control"
                             placeholder="Item Name" aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button @click="getSearchitem()"  class="btn btn-outline-grey" type="button">Search </button>
+                            <button @click="getSearchitem()" class="btn btn-outline-grey" type="button">Search </button>
                         </div>
                     </div>
                 </div>
@@ -180,7 +169,7 @@
                 <!-- ****** Quick View Modal Area Start ****** -->
                 <div class="modal fade" id="quickview" tabindex="-1" role="dialog" aria-labelledby="quickview"
                     aria-hidden="true">
-                    <!-- asda -->
+
                     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
@@ -193,43 +182,35 @@
                                         <div class="row">
                                             <div class="col-12 col-lg-5">
                                                 <div class="quickview_pro_img">
-                                                    <img v-bind:src="'img/product-img/product-' + showquickview.item_id + '.jpg'" alt="" height="435" width="434"> 
+                                                    <img v-bind:src="'img/product-img/product-' + showquickview.item_id + '.jpg'"
+                                                        alt="" height="435" width="434">
                                                 </div>
                                             </div>
                                             <div class="col-12 col-lg-7">
                                                 <div class="quickview_pro_des">
-                                                    <h4 class="title">{{showquickview.item_name}} <h6>{{showquickview.artist}} </h6>  </h4>
+                                                    <h4 class="title">{{showquickview.item_name}} <h6>
+                                                            {{showquickview.artist}} </h6>
+                                                    </h4>
                                                     <p> {{showquickview.item_category}}</p>
-                                                    <!-- <div class="top_seller_product_rating mb-15">
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                    </div> -->
+
                                                     <h5 class="price">${{showquickview.item_price}} </h5>
-                                                    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                        Mollitia
-                                                        expedita quibusdam aspernatur, sapiente consectetur accusantium
-                                                        perspiciatis praesentium eligendi, in fugiat?</p>
-                                            
-                                                    <a href="#">View Full Product Details</a> -->
+
                                                     <br>
                                                     <p> {{showquickview.item_desc}} </p>
-                                                
-                                                <!-- Add to Cart Form -->
-                                                <div v-if="showquickview.item_status == 'Out of Stock'">
-                                                    <br>
-                                                    <p style="color: red;"> Out of stock </p>
-                                                </div>
 
-                                                <div v-if="showquickview.item_status != 'Out of Stock'">
-                                                    <br>
-                                                    <button @click="addcartcount(showquickview.item_id)" href="#"
-                                                    class="btn btn-outline-danger" >ADD TO
-                                                    CART</button>
-                                                </div>
- 
+                                                    <!-- Add to Cart Form -->
+                                                    <div v-if="showquickview.item_status == 'Out of Stock'">
+                                                        <br>
+                                                        <p style="color: red;"> Out of stock </p>
+                                                    </div>
+
+                                                    <div v-if="showquickview.item_status != 'Out of Stock'">
+                                                        <br>
+                                                        <button @click="addcartcount(showquickview.item_id)" href="#"
+                                                            class="btn btn-outline-danger">ADD TO
+                                                            CART</button>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -240,8 +221,6 @@
                     </div>
                 </div>
                 <!-- ****** Quick View Modal Area End ****** -->
-
-
 
 
                 <section class="shop_grid_area section_padding_100">
@@ -262,12 +241,10 @@
                                                     <li data-toggle="collapse" data-target="#man2" class="collapsed">
                                                         <a href="#"> Categories </a>
                                                         <ul class="sub-menu collapse" id="man2">
-                                                            <li >
-                                                                <input class="a-copy" value="all"
-                                                                    v-model="filteritem" type="checkbox"
-                                                                    id="all">
-                                                                <label for="all"
-                                                                    class="a-label"> Select all </label>
+                                                            <li>
+                                                                <input class="a-copy" value="all" v-model="filteritem"
+                                                                    type="checkbox" id="all">
+                                                                <label for="all" class="a-label"> Select all </label>
                                                             </li>
 
                                                             <li v-for="genre in uniquegenre">
@@ -280,71 +257,15 @@
                                                         </ul>
                                                     </li>
 
-                                                    <!-- Single Item -->
-                                                    <!-- <li data-toggle="collapse" data-target="#kids2" class="collapsed">
-                                                        <a href="#">Instruments</a>
-                                                        <ul class="sub-menu collapse" id="kids2">
-                                                            <li v-for="instrument in uniqueinstrument"> <input
-                                                                    class="a-copy" type="checkbox"
-                                                                    v-bind:value="instrument" v-model="filteritem"
-                                                                    v-bind:id="instrument">
-                                                                <label v-bind:for="instrument"
-                                                                    class="a-label">{{instrument}}</label>
-                                                            </li>
-                                                        </ul>
-                                                    </li> -->
+
                                                     <br>
-                                                    <button @click="filter()" type="button" class="btn btn-secondary"> Filter </button>
+                                                    <button @click="filter()" type="button" class="btn btn-secondary">
+                                                        Filter </button>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-                                <!-- 
-                                    <div class="widget price mb-50">
-                                        <h6 class="widget-title mb-30">Filter by Price</h6>
-                                        <div class="widget-desc">
-                                            <div class="slider-range">
-                                                <div data-min="0" data-max="3000" data-unit="$"
-                                                    class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
-                                                    data-value-min="0" data-value-max="1350" data-label-result="Price:">
-                                                    <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                                    <span class="ui-slider-handle ui-state-default ui-corner-all"
-                                                        tabindex="0"></span>
-                                                    <span class="ui-slider-handle ui-state-default ui-corner-all"
-                                                        tabindex="0"></span>
-                                                </div>
-                                                <div class="range-price">Price: 0 - 1350</div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="widget color mb-70">
-                                        <h6 class="widget-title mb-30">Filter by Genre</h6>
-                                        <div class="widget-desc">
-                                            <ul class="d-flex justify-content-between">
-                                                <li class="gray"><a href="#"><span>(3)</span></a></li>
-                                                <li class="red"><a href="#"><span>(25)</span></a></li>
-                                                <li class="yellow"><a href="#"><span>(112)</span></a></li>
-                                                <li class="green"><a href="#"><span>(72)</span></a></li>
-                                                <li class="teal"><a href="#"><span>(9)</span></a></li>
-                                                <li class="cyan"><a href="#"><span>(29)</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="widget size mb-50">
-                                        <h6 class="widget-title mb-30">Filter by Artist </h6>
-                                        <div class="widget-desc">
-                                            <ul class="d-flex justify-content-between">
-                                                <li><a href="#">XS</a></li>
-                                                <li><a href="#">S</a></li>
-                                                <li><a href="#">M</a></li>
-                                                <li><a href="#">L</a></li>
-                                                <li><a href="#">XL</a></li>
-                                                <li><a href="#">XXL</a></li>
-                                            </ul>
-                                        </div>
-                                    </div> -->
 
                                 </div>
                             </div>
@@ -363,9 +284,10 @@
                                                 <img alt=""
                                                     v-bind:src="'img/product-img/product-' + inventoryitem.item_id + '.jpg'">
                                                 <div class="product-quicview">
-
-                                                    <a href="#" @click="quickview(inventoryitem.item_id)" data-toggle="modal"
-                                                        data-target="#quickview"><i class="ti-plus"></i></a>
+                                                    <!-- change quickview object data to this item when clicked -->
+                                                    <a href="#" @click="quickview(inventoryitem.item_id)"
+                                                        data-toggle="modal" data-target="#quickview"><i
+                                                            class="ti-plus"></i></a>
                                                 </div>
                                             </div>
                                             <!-- Product Description -->
@@ -374,7 +296,6 @@
                                                 <p style="font-size: 18px;">{{inventoryitem.item_name}}</p>
                                                 <p class="artist">{{inventoryitem.artist}}</p>
                                                 <!-- Add to Cart -->
-                                                <!-- asd -->
                                                 <div v-if="inventoryitem.item_status == 'Out of Stock'">
                                                     <br>
                                                     <p style="color: red;"> Out of stock </p>
@@ -409,81 +330,7 @@
             <!-- vue end -->
         </div>
 
-        <!-- ****** Footer Area Start ****** -->
-        <footer class="footer_area">
-            <div class="container">
-                <div class="row">
-                    <!-- Single Footer Area Start -->
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="single_footer_area">
-                            <div class="footer-logo">
-                                <img src="img/core-img/logo.png" alt="">
-                            </div>
-                            <div class="copywrite_text d-flex align-items-center">
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Footer Area Start -->
-                    <div class="col-12 col-sm-6 col-md-3 col-lg-2">
-                        <div class="single_footer_area">
-                            <ul class="footer_widget_menu">
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">Faq</a></li>
-                                <li><a href="#">Returns</a></li>
-                                <li><a href="#">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Single Footer Area Start -->
-                    <div class="col-12 col-sm-6 col-md-3 col-lg-2">
-                        <div class="single_footer_area">
-                            <ul class="footer_widget_menu">
-                                <li><a href="#">My Account</a></li>
-                                <li><a href="#">Shipping</a></li>
-                                <li><a href="#">Our Policies</a></li>
-                                <li><a href="#">Afiliates</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Single Footer Area Start -->
-                    <div class="col-12 col-lg-5">
-                        <div class="single_footer_area">
-                            <div class="footer_heading mb-30">
-                                <h6>Subscribe to our newsletter</h6>
-                            </div>
-                            <div class="subscribtion_form">
-                                <form action="#" method="post">
-                                    <input type="email" name="mail" class="mail" placeholder="Your email here">
-                                    <button type="submit" class="submit">Subscribe</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="line"></div>
-
-                <!-- Footer Bottom Area Start -->
-
-                <!-- testing -->
-
-
-                <div class="footer_bottom_area">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="footer_social_area text-center">
-                                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- ****** Footer Area End ****** -->
+        
     </div>
 
     <!-- /.wrapper end -->
@@ -499,18 +346,15 @@
 
                 shopitemcount: 0,
                 displayprice: 0,
-                testcount: 0,
-                // i assume this is where the dataset of SQL will go 
-                // (`item_name`, `artist`, `item_id`, `item_price`, `item_quantity`, `item_category`, `item_status`)
-                // {"artist":"Travis Scott","item_category":"Rap & HipHop","item_id":"190758883625","item_name":"ASTROWORLD","item_price":8.99,"item_quantity":0,"item_status":"Out of Stock"}
 
+                // "inventory" is where the dataset of SQL will go 
+                // example of data  parsed {"artist":"Travis Scott","item_category":"Rap & HipHop","item_id":"190758883625","item_name":"ASTROWORLD","item_price":8.99,"item_quantity":0,"item_status":"Out of Stock"}
 
                 "inventory": [],
                 // this is the list that will go to the cart
                 cartobj: {},
                 uniquecategory: [],
                 uniquegenre: [],
-                // uniqueinstrument: [],
                 searchname: "",
                 item_category: [],
                 filteritem: [],
@@ -518,9 +362,11 @@
                 temp: [],
                 fullinventory: [],
                 showquickview: ""
-    
+
 
             },
+            // mount will be used to retrieve data to another page via local storage 
+            // used to transfer the cart information to another page
             mounted() {
 
                 if (localStorage.getItem('cart')) {
@@ -540,7 +386,7 @@
             },
             methods: {
                 // frontend functions
-                 deletethis: function (itemID) {
+                deletethis: function (itemID) {
                     delete this.cartobj[itemID];
 
                     todisplayprice = 0;
@@ -555,16 +401,16 @@
                 filter: function () {
 
                     //click filter select thing loop through inventory and pick out those
-                    if (this.filteritem.includes('all')){
+                    if (this.filteritem.includes('all')) {
                         this.inventory = this.fullinventory
                     } else {
                         for (filtercategory of this.filteritem) {
-                        for (item of this.sortedbycategoryinventory[filtercategory]) {
-                            this.temp.push(item)
+                            for (item of this.sortedbycategoryinventory[filtercategory]) {
+                                this.temp.push(item)
+                            }
                         }
-                    }
-                    this.inventory = this.temp
-                    this.temp = []
+                        this.inventory = this.temp
+                        this.temp = []
                     }
 
                 },
@@ -577,7 +423,6 @@
                     localStorage.qty = 0
                 },
                 addcartcount: function (itemID) {
-                    this.testcount++;
                     cartobj = {}
                     // if index exist in cartlist add to quantity in cart
                     var cartitemID = itemID.toString();
@@ -611,16 +456,14 @@
                     localStorage.qty = this.shopitemcount;
                     // dsa
                 }, quickview(itemID) {
-                    for (index in this.inventory){
-                        if (this.inventory[index]["item_id"] == itemID){
+                    for (index in this.inventory) {
+                        if (this.inventory[index]["item_id"] == itemID) {
                             this.showquickview = this.inventory[index]
-                            this.testcount = 3
                         }
                     }
-                },// backend 
-
+                },
+                // backend functions using GET requests
                 getAllitem: function () {
-                    // on Vue instance created, load the book list
                     const response =
                         fetch(get_all_URL)
                             .then(response => response.json())
@@ -636,24 +479,10 @@
                                     for (item of data.data.inventories) {
                                         if (!(this.uniquegenre.includes(item.item_category))) {
                                             this.uniquegenre.push(item.item_category)
-                                        } 
+                                        }
 
                                     }
-                                    // for (item of data.data.inventories) {
-                                    //     if (!(this.uniquegenre.includes(item.item_category)) && item.item_category != "Instrument") {
-                                    //         this.uniquegenre.push(item.item_category)
-                                    //     } else if (item.item_category == "Instrument") {
-                                    //         var instrumentnamearray = item.item_name.split(" ")
-                                    //         var instrumentname = instrumentnamearray[instrumentnamearray.length - 1]
-
-                                    //         if (!(this.uniqueinstrument.includes(instrumentname))) {
-                                    //             this.uniqueinstrument.push(instrumentname)
-                                    //         }
-
-                                    //     }
-
-                                    // }
-                                    // create sorted by cat list 
+                                    // create sorted by catogory list 
                                     for (item of data.data.inventories) {
                                         if (!(item.item_category in this.sortedbycategoryinventory)) {
                                             this.sortedbycategoryinventory[item.item_category] = []
@@ -705,15 +534,15 @@
     </script>
 
 
-    jQuery (Necessary for All JavaScript Plugins)
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
-    Popper js
+    <!-- Popper js -->
     <script src="js/popper.min.js"></script>
-    Bootstrap js
+    <!-- Bootstrap js -->
     <script src="js/bootstrap.min.js"></script>
-    Plugins js
+    <!-- Plugins js -->
     <script src="js/plugins.js"></script>
-    Active js
+    <!-- Active js -->
     <script src="js/active.js"></script>
 
 
