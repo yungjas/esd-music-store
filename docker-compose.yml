@@ -12,7 +12,7 @@ services:
     build:
       context: ./
       dockerfile: inventory.Dockerfile
-    image: jasmine999/inventory:esd
+    image: shawntwj/inventory:esd
     restart: always
     environment:
       dbURL: mysql+mysqlconnector://is213@host.docker.internal:3308/inventory
@@ -40,7 +40,7 @@ services:
     build:
       context: ./
       dockerfile: error.Dockerfile
-    image: jasmine999/error:esd
+    image: shawntwj/error:esd
     restart: always
     depends_on:
       - rabbitmq
@@ -57,7 +57,7 @@ services:
     build:
       context: ./
       dockerfile: order.Dockerfile
-    image: jasmine999/order:esd
+    image: shawntwj/order:esd
     restart: always
     environment:
       dbURL: mysql+mysqlconnector://is213@host.docker.internal:3308/order_music
@@ -72,7 +72,7 @@ services:
     build:
       context: ./
       dockerfile: payment.Dockerfile
-    image: jasmine999/payment:esd
+    image: shawntwj/payment:esd
     restart: always
     environment:
       dbURL: mysql+mysqlconnector://is213@host.docker.internal:3308/payment
@@ -87,7 +87,7 @@ services:
     build:
       context: ./
       dockerfile: place_order.Dockerfile
-    image: jasmine999/place_order:esd
+    image: shawntwj/place_order:esd
     restart: always
     depends_on:
       - order
